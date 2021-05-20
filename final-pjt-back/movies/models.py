@@ -8,10 +8,6 @@ class Genre(models.Model):
     id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=50)
 
-class Collection(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    title = models.CharField(max_length=100)
-    info = models.CharField(max_length=200)
 
 class Movie(models.Model):
     title = models.CharField(max_length=100)
@@ -23,4 +19,10 @@ class Movie(models.Model):
     poster_path = models.CharField(max_length=200)
     trailer_path = models.CharField(max_length=200)
     genres = models.ManyToManyField(Genre)
-    collections = models.ManyToManyField(Collection)
+
+
+class Collection(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    movie = models.ManyToManyField(Movie)
+    title = models.CharField(max_length=100)
+    info = models.CharField(max_length=200)

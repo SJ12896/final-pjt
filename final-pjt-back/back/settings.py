@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'community',
     'rest_framework',
     'corsheaders',
+    'django_seed',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -123,14 +124,3 @@ CORS_ALLOW_ALL_ORIGINS = True
 JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7), 
 }
-
-# REST_FRAMEWORK = {
-#     'DEFAULT_PERMISSION_CLASSES': (
-#         'rest_framework.permissions.IsAuthenticated',
-#         'rest_framework.permissions.IsAdminUser',
-#     ),
-#     'DEFAULT_AUTHENTICATION_CLASSES': (
-#         'rest_framework.authentication.TokenAuthentication',
-#         'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
-#     ),
-# }
