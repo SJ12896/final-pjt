@@ -38,7 +38,7 @@ export default {
     signup: function () {
       axios({
         method: 'post',
-        url: `${SERVER_URL}/accounts/signup/`,
+        url: `${SERVER_URL}/accounts/user/`,
         data: this.credentials,
       })
       .then((res) => {

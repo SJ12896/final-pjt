@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'accounts',
     'movies',
     'community',
+    'rest_framework',
     'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -120,7 +121,7 @@ AUTH_USER_MODEL = 'accounts.User'
 CORS_ALLOW_ALL_ORIGINS = True
 
 JWT_AUTH = {
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=1), 
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(days=7), 
 }
 
 # REST_FRAMEWORK = {

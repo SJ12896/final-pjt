@@ -4,7 +4,7 @@ from .views import UserCDView, UserView
 
 
 urlpatterns = [
+    path('api-token-auth/', obtain_jwt_token),
     path('user/', UserCDView.as_view()),
     path('<username>/', UserView.as_view()),
-    path('api-token-auth/', obtain_jwt_token),
 ]

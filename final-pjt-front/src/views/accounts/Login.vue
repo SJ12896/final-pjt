@@ -8,9 +8,9 @@
     <div>
       <label for="password">비밀번호: </label>
       <input type="text" id="password" v-model="credentials.password"
-      @keypress.enter="login(credentials)">
+      @keypress.enter="login">
     </div>
-    <button @click="login(credentials)">로그인</button>
+    <button @click="login">로그인</button>
   </div>
 </template>
 
@@ -33,7 +33,7 @@ export default {
     login: function () {
       axios({
         method: 'post',
-        url: `${SERVER_URL}/accounts/login/`,
+        url: `${SERVER_URL}/accounts/api-token-auth/`,
         data: this.credentials,
       })
       .then((res) => {
