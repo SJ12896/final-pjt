@@ -71,3 +71,10 @@ class MovieListView(APIView):
     #         serializer.save(user=request.user)
     #         serializer.movies.add(*movies)
     #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+class CollecionAllView(APIView):
+
+    def get(self, request):
+        collections = get_list_or_404(Collection)
+        serializer = CollectionListSerializer(collections, many=True)
+        return Response(serializer.data)
