@@ -21,7 +21,7 @@ class CollectionSerializer(serializers.ModelSerializer):
 class MoviesListSerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = Collection
+        model = Movie
         fields = '__all__'
         read_only_fields = ('genres',)
 

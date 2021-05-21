@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.contrib.auth import get_user_model
 
 # Create your views here.
 @authentication_classes([JSONWebTokenAuthentication])
@@ -35,14 +36,16 @@ class CollectionView(APIView):
             return Response(serializer.data)
 
 
-@authentication_classes([JSONWebTokenAuthentication])
-@permission_classes([IsAuthenticated])
+
 class CollectionListView(APIView):
 
-    def get(self, request):
-        serializer = CollectionListSerializer(request.user.set_collection, many=True)
+    def get(self, request, user_id):
+        person = get_object_or_404(get_user_model(), pk=user_id)
+        serializer = CollectionListSerializer(person.collection_set, many=True)
         return Response(serializer.data)
 
+    @authentication_classes([JSONWebTokenAuthentication])
+    @permission_classes([IsAuthenticated])
     def post(self, request):
         movies = request.POST['movies']
         serializer = CollectionSerializer(data=request.data)
@@ -57,7 +60,7 @@ class CollectionListView(APIView):
 class MovieListView(APIView):
 
     def get(self, request):
-        movies = get_list_or_404(Movie)
+        movies = Movie.objects.order_by('popularity')
         serializer = MoviesListSerializer(movies, many=True)
         return Response(serializer.data)
 
