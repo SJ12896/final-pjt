@@ -10,7 +10,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
 
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
 class UserView(APIView):
+    serializer_class = UserSerializer
 
     def get(self, request, username):
         person = get_object_or_404(get_user_model(), username=username)
@@ -32,11 +35,25 @@ class UserView(APIView):
         }
             return Response(follow_status)
         return Response({'detail': '자신을 팔로우할 수 없습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
+    
+    def delete(self, request, username):
+        person = get_object_or_404(get_user_model(), username=username)
+        if request.user == person:
+            request.user.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
 
+    def put(self, request, username):
+        person = get_object_or_404(get_user_model(), username=username)
+        if request.user == person:
+            serializer = self.serializer_class(request.user, data=request.data, partial=True)
+            if serializer.is_valid(raise_exception=True):
+                user = serializer.save()
+                user.set_password(request.data.get('password'))
+                user.save()
+                return Response(serializer.data)
 
 
 class UserCDView(APIView):
-    serializer_class = UserSerializer
 
     def post(self, request):
         password = request.data.get('password')
@@ -53,16 +70,3 @@ class UserCDView(APIView):
             user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    @authentication_classes([JSONWebTokenAuthentication])
-    @permission_classes([IsAuthenticated])
-    def delete(self, request):
-        request.user.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
-
-    @authentication_classes([JSONWebTokenAuthentication])
-    @permission_classes([IsAuthenticated])
-    def put(self, request):
-        serializer = self.serializer_class(request.user, data=request.data, partial=True)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)

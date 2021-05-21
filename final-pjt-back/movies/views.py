@@ -1,3 +1,4 @@
+from rest_framework.serializers import Serializer
 from .serializers import CollectionListSerializer, CollectionSerializer, MoviesListSerializer
 from .models import Collection, Movie
 
@@ -10,6 +11,7 @@ from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.contrib.auth import get_user_model
+
 
 # Create your views here.
 @authentication_classes([JSONWebTokenAuthentication])
@@ -44,16 +46,6 @@ class CollectionListView(APIView):
         serializer = CollectionListSerializer(person.collection_set, many=True)
         return Response(serializer.data)
 
-    @authentication_classes([JSONWebTokenAuthentication])
-    @permission_classes([IsAuthenticated])
-    def post(self, request):
-        movies = request.POST['movies']
-        serializer = CollectionSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save(user=request.user)
-            serializer.movies.add(*movies)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-
 
 @authentication_classes([JSONWebTokenAuthentication])
 @permission_classes([IsAuthenticated])
@@ -72,9 +64,25 @@ class MovieListView(APIView):
     #         serializer.movies.add(*movies)
     #         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
 class CollecionAllView(APIView):
 
     def get(self, request):
         collections = get_list_or_404(Collection)
         serializer = CollectionListSerializer(collections, many=True)
         return Response(serializer.data)
+    
+
+    def post(self, request):
+        movies = request.POST['movies']
+        movies = list(map(int, movies[1:len(movies)-1].split(',')))
+        title = request.POST['title']
+        info = request.POST['info']
+        collection = Collection(title=title, info=info, user=request.user)
+        collection.save()
+        collection.movies.add(*movies)
+        serializer = CollectionSerializer(collection)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+

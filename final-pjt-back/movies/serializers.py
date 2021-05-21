@@ -10,7 +10,7 @@ class CollectionListSerializer(serializers.ModelSerializer):
 
 
 class CollectionSerializer(serializers.ModelSerializer):
-    movie_count = serializers.IntegerField(source='movie.count', read_only=True)
+    movies_count = serializers.IntegerField(source='movies.count', read_only=True)
 
     class Meta:
         model = Collection
