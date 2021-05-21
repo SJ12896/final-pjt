@@ -1,4 +1,4 @@
-from .serializers import CollectionListSerializer, CollectionSerializer, MoviesSerializer
+from .serializers import CollectionListSerializer, CollectionSerializer, MoviesListSerializer
 from .models import Collection, Movie
 
 from rest_framework import status
@@ -44,7 +44,27 @@ class CollectionListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
+        movies = request.POST['movies']
         serializer = CollectionSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user)
+            serializer.movies.add(*movies)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+class MovieListView(APIView):
+
+    def get(self, request):
+        movies = get_list_or_404(Movie)
+        serializer = MoviesListSerializer(movies, many=True)
+        return Response(serializer.data)
+
+    # def post(self, request):
+    #     movies = request.POST['movies']
+    #     serializer = CollectionSerializer(data=request.data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         serializer.save(user=request.user)
+    #         serializer.movies.add(*movies)
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)

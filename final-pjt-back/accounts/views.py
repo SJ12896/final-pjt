@@ -16,6 +16,23 @@ class UserView(APIView):
         person = get_object_or_404(get_user_model(), username=username)
         serializer = UserSerializer(person)
         return Response(serializer.data)
+    
+    def post(self, request, username):
+        person = get_object_or_404(get_user_model(), username=username)
+        if person != request.user:
+            if person.followers.filter(pk=request.user.pk).exists():
+                person.followers.remove(request.user)
+                followed = False
+            else:
+                person.followers.add(request.user)
+                followed = True
+            follow_status = {
+            'followed' : followed,
+            'count' : person.followers.count(),
+        }
+            return Response(follow_status)
+        return Response({'detail': '자신을 팔로우할 수 없습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 
 class UserCDView(APIView):

@@ -23,6 +23,6 @@ class Movie(models.Model):
 
 class Collection(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    movie = models.ManyToManyField(Movie)
+    movies = models.ManyToManyField(Movie)
     title = models.CharField(max_length=100)
     info = models.CharField(max_length=200)

@@ -15,7 +15,15 @@ class CollectionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Collection
         fields = '__all__'
-        read_only_fields = ('movie', 'user', )
+        read_only_fields = ('movies', 'user', )
+
+
+class MoviesListSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Collection
+        fields = '__all__'
+        read_only_fields = ('genres',)
 
 
 class MoviesSerializer(serializers.ModelSerializer):

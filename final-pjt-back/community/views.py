@@ -35,6 +35,21 @@ class ReviewView(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+    
+    def post(self, request, review_id):
+        review = get_object_or_404(Review, id=review_id)
+        if review.like_users.filter(pk=request.user.pk).exists():
+            review.like_users.remove(request.user)
+            liked = False
+        else:
+            review.like_users.add(request.user)
+            liked = True
+        like_status = {
+            'liked' : liked,
+            'count' : review.like_users.count(),
+        }
+        return Response(like_status)
+
 
 
 @authentication_classes([JSONWebTokenAuthentication])
