@@ -18,7 +18,7 @@ export default {
     }
   },
   created: function () {
-      let user_id = window.location.href.split('/')[4];
+      let user_id = this.$route.params.user_id
       const config = this.$store.dispatch('setToken')
       axios.get(`${SERVER_URL}/movies/collection_list/${user_id}`, config)
       .then((res) => {
