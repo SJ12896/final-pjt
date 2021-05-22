@@ -1,5 +1,5 @@
 from rest_framework.serializers import Serializer
-from .serializers import CollectionListSerializer, CollectionSerializer, MoviesListSerializer
+from .serializers import CollectionListSerializer, CollectionSerializer, MoviesListSerializer, MoviesSerializer
 from .models import Collection, Movie
 
 from rest_framework import status
@@ -56,13 +56,14 @@ class MovieListView(APIView):
         serializer = MoviesListSerializer(movies, many=True)
         return Response(serializer.data)
 
-    # def post(self, request):
-    #     movies = request.POST['movies']
-    #     serializer = CollectionSerializer(data=request.data)
-    #     if serializer.is_valid(raise_exception=True):
-    #         serializer.save(user=request.user)
-    #         serializer.movies.add(*movies)
-    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    def post(self, request):
+        movie_id = list(dict(request.POST).keys())
+        movie_id = movie_id[0] if movie_id else ''
+        if movie_id:
+            movie = get_object_or_404(Movie, pk=int(movie_id))
+            serializer = MoviesSerializer(movie)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({'detail': '컬렉션에 저장된 영화가 없습니다.'})
 
 
 @authentication_classes([JSONWebTokenAuthentication])

@@ -15,11 +15,9 @@ export default new Vuex.Store({
   mutations: {
     SET_TOKEN: function(state, config) {
       state.config = config
-      console.log(config)
     },
     GET_MOVIES: function(state, movies) {
       state.movies = movies
-      console.log(movies)
     },
   },
   actions: {
