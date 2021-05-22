@@ -11,7 +11,6 @@ export default new Vuex.Store({
   state: {
     movies: null,
     config: null,
-    selectedMovie: null,
   },
   mutations: {
     SET_TOKEN: function(state, config) {
@@ -22,10 +21,6 @@ export default new Vuex.Store({
       state.movies = movies
       console.log(movies)
     },
-    SELECT_MOVIE: function(state, selectedMovie) {
-      state.selectedMovie = selectedMovie
-      console.log(selectedMovie)
-    }
   },
   actions: {
     setToken: function({commit} ) {
@@ -47,9 +42,6 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
-    },
-    selectMovie: function ({commit}, selectedMovie ) {
-      commit('SELECT_MOVIE',selectedMovie )
     }
   },
   modules: {

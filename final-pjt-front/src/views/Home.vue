@@ -6,8 +6,9 @@
 </template>
 
 <script>
+// import _ from 'lodash'
 import axios from 'axios'
-import MovieList from '@/components/MovieList'
+import MovieList from '@/components/Movie/MovieList'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -18,7 +19,7 @@ export default {
   },
   data: function () {
     return {
-      movies: [],
+      movies: null,
     }
   },
   methods: {
@@ -31,7 +32,7 @@ export default {
       }
       return config
     },
-     getMovies: function () {
+    getMovies: function () {
       const config = this.setToken()
       axios.get(`${SERVER_URL}/movies/movie/`,config)
       .then((res) => {
@@ -42,9 +43,21 @@ export default {
         console.log(err)
       })
     },
+    getCollections: function () {
+      const config = this.setToken()
+      axios.get(`${SERVER_URL}/movies/collection_all/`, config)
+      .then((res) => {
+        console.log(res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
   },
   mounted() {
     this.getMovies()
+    this.getCollections()
   }
 }
 </script>
