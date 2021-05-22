@@ -1,17 +1,18 @@
 <template>
   <div>
-    <h2>MovieList</h2>
-    <h1 v-for="(movie,idx) in movies" :key="idx" movie="movie" >
-      {{ movie.title }}
-    </h1>
+    <MovieListItem v-for="(movie,idx) in movies" :key="idx" :movie="movie" />
   </div>
 </template>
 
 <script>
-// import { mapState } from 'vuex'
+// import _ from 'lodash'
+import MovieListItem from '@/components/Movie/MovieListItem'
 
 export default {
   name:'MovieList',
+  components: {
+    MovieListItem,
+  },
   props: {
     movies: Array,
   }
