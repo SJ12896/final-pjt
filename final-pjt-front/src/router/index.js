@@ -31,6 +31,7 @@ const routes = [
     path: '/accounts/:user_id/detail/',
     name: 'Profile',
     component: Profile,
+    props: true,
   },
   {
     path: '/movies/:movieId/detail/',

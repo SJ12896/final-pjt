@@ -15,13 +15,13 @@ from django.contrib.auth import get_user_model
 class UserView(APIView):
     serializer_class = UserSerializer
 
-    def get(self, request, username):
-        person = get_object_or_404(get_user_model(), username=username)
+    def get(self, request, user_id):
+        person = get_object_or_404(get_user_model(), pk=user_id)
         serializer = UserSerializer(person)
         return Response(serializer.data)
     
-    def post(self, request, username):
-        person = get_object_or_404(get_user_model(), username=username)
+    def post(self, request, user_id):
+        person = get_object_or_404(get_user_model(), pk=user_id)
         if person != request.user:
             if person.followers.filter(pk=request.user.pk).exists():
                 person.followers.remove(request.user)
@@ -36,14 +36,14 @@ class UserView(APIView):
             return Response(follow_status)
         return Response({'detail': '자신을 팔로우할 수 없습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
     
-    def delete(self, request, username):
-        person = get_object_or_404(get_user_model(), username=username)
+    def delete(self, request, user_id):
+        person = get_object_or_404(get_user_model(), pk=user_id)
         if request.user == person:
             request.user.delete()
             return Response(status=status.HTTP_204_NO_CONTENT)
 
-    def put(self, request, username):
-        person = get_object_or_404(get_user_model(), username=username)
+    def put(self, request, user_id):
+        person = get_object_or_404(get_user_model(), pk=user_id)
         if request.user == person:
             serializer = self.serializer_class(request.user, data=request.data, partial=True)
             if serializer.is_valid(raise_exception=True):
@@ -70,3 +70,10 @@ class UserCDView(APIView):
             user.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+class UserId(APIView):
+
+    def get(self, request, username):
+        person = get_object_or_404(get_user_model(), username=username)
+        serializer = UserSerializer(person)
+        return Response(serializer.data)

@@ -38,8 +38,14 @@ export default {
       })
       .then((res) => {
         localStorage.setItem('jwt', res.data.token)
+        const myname = this.credentials.username
+        localStorage.setItem('myname', myname)
         this.$emit('login')
         this.$router.push({ name: 'Home' })
+        return axios.get(`${SERVER_URL}/accounts/id/${this.credentials.username}/`)
+      .then((res) => {
+        localStorage.setItem('myId', res.data.id)
+      })
       })
       .catch((err) => {
         console.log(err)

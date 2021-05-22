@@ -28,7 +28,7 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" @click="logout">Logout</a></li>
-                <li><a class="dropdown-item" >Another action</a></li>
+                <li><a class="dropdown-item" ><router-link :to="{ path: '/accounts/'+`${myId}`+'/detail'}">Profile</router-link></a></li>
                 <li><hr class="dropdown-divider"></li>
               </ul>
             </span>
@@ -51,6 +51,8 @@ export default {
   data: function () {
     return {
       login: false,
+      username: '',
+      myId: '',
     }
   },
   methods: {
@@ -63,8 +65,10 @@ export default {
   },
   created: function () {
     const token = localStorage.getItem('jwt')
+    const myId = localStorage.getItem('myId')
     if (token) {
       this.login = true
+      this.myId = myId
     }
   }
 }

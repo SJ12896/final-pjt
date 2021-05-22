@@ -1,3 +1,4 @@
+from django.contrib.auth import get_user_model
 from .serializers import ReviewSerializer,ReviewListSerializer, CommentSerializer
 from .models import Review, Comment
 from movies.models import Movie
@@ -9,7 +10,7 @@ from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
 
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_list_or_404, get_object_or_404
 
 
 # Create your views here.
@@ -50,6 +51,15 @@ class ReviewView(APIView):
         }
         return Response(like_status)
 
+
+@authentication_classes([JSONWebTokenAuthentication])
+@permission_classes([IsAuthenticated])
+class UserReview(APIView):
+
+    def get(self, request, user_id):
+        person = get_object_or_404(get_user_model(), pk=user_id)
+        Serializer = ReviewListSerializer(person.review_set, many=True)
+        return Response(Serializer.data)
 
 
 @authentication_classes([JSONWebTokenAuthentication])
