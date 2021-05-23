@@ -1,11 +1,6 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(comment, idx) in review.comment_set" v-bind:key="idx" :comment="comment">
-        {{ comment.content }}
-        <button @click="deleteComment(comment.id)">Delete</button>
-      </li>
-    </ul>
+    <CommentListItem v-for="(comment, idx) in this.review.comment_set" v-bind:key="idx" :idx="idx" :comment="comment" :review="review"/>
     <div>
       <label for="content">댓글 : </label>
       <input type="text" id="content" v-model.trim="comment.content" @keypress.enter="createComment">
@@ -16,11 +11,15 @@
 
 <script>
 import axios from 'axios'
+// import _ from 'lodash'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
+import CommentListItem from '@/components/Comment/CommentListItem'
 
 export default {
   name: 'CommentList',
-
+  components: {
+    CommentListItem,
+  },
   props: {
     review: {
       type: [Array, Object],
@@ -28,6 +27,7 @@ export default {
   },
   data: function () {
     return {
+      update: true,
       comments: this.review.comment_set,
       comment: {
         content: '',
@@ -51,7 +51,7 @@ export default {
       }
       const newComments = this.review.comment_set
       // console.log(this.comment.content)
-      axios.post(`${SERVER_URL}/community/review/${this.review.id}/comment`,commentItem, config)
+      axios.post(`${SERVER_URL}/community/review/${this.review.id}/comment/`,commentItem, config)
       .then((res) => {
         console.log(res.data)
         newComments.push(res.data)
@@ -60,26 +60,6 @@ export default {
          console.log(err)
          })
          this.comments = newComments
-    },
-    deleteComment: function (commentId) {
-      const config = this.setToken()
-      const newComments = this.review.comment_set
-      // const commentId = commentId
-      console.log(commentId)
-      axios.delete(`${SERVER_URL}/community/comment/${commentId}/`,config)
-      .then((res) => {
-          console.log(res)
-          // const targetCommentIdx = newComments.findIndex((comment) => {
-          //   return comment.id === res.data.id
-          // })
-          console.log(commentId)
-          newComments.splice(commentId,1)
-          })
-          .catch((err) => {
-          console.log(err)
-          })
-         this.comments = newComments
-
     },
   },
 }
