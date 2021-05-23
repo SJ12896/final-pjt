@@ -86,7 +86,7 @@ class CommentView(APIView):
     def delete(self, request, comment_id):
         comment = get_object_or_404(Comment, id=comment_id)
         comment.delete()
-        return Response({'id' : comment_id }, status=status.HTTP_204_NO_CONTENT)
+        return Response({'id' : comment_id}, status=status.HTTP_204_NO_CONTENT)
 
     def put(self, request, comment_id):
         comment = get_object_or_404(Comment, id=comment_id)

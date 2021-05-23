@@ -8,6 +8,9 @@
     </div>
     <hr>
     <h3>컬렉션 목록</h3>
+    <div>
+    <CollectionNew :isSamePerson="isSamePerson"/>
+    </div>
     <CollectionList :collections="collections" />
     <hr>
     <h3>리뷰 목록</h3>
@@ -21,6 +24,7 @@ import CollectionList from '@/components/Profile/CollectionList.vue'
 import UserInfo from '@/components/Profile/UserInfo.vue'
 import UserReviewList from '@/components/Profile/UserReviewList.vue'
 import Follow from '@/components/Profile/Follow.vue'
+import CollectionNew from '@/components/Profile/CollectionNew.vue'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -31,6 +35,7 @@ export default {
     UserInfo,
     UserReviewList,
     Follow,
+    CollectionNew,
   },
   data: function() {
     return {

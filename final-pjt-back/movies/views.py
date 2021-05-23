@@ -87,3 +87,11 @@ class CollecionAllView(APIView):
         serializer = CollectionSerializer(collection)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+
+class SearchMovie(APIView):
+    def post(self, request):
+        data = request.POST['searchVal']
+        movies = Movie.objects.filter(title__contains=data)
+        serializer = MoviesListSerializer(movies, many=True)
+        return Response(serializer.data)
+        # return Response({'detail': '컬렉션에 저장된 영화가 없습니다.'})    
