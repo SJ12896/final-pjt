@@ -25,13 +25,12 @@ class UserView(APIView):
         if person != request.user:
             if person.followers.filter(pk=request.user.pk).exists():
                 person.followers.remove(request.user)
-                followed = False
             else:
                 person.followers.add(request.user)
-                followed = True
+
             follow_status = {
-            'followed' : followed,
-            'count' : person.followers.count(),
+            'followerCount' : person.followers.count(),
+            'followingCount' : person.followings.count(),
         }
             return Response(follow_status)
         return Response({'detail': '자신을 팔로우할 수 없습니다.'}, status=status.HTTP_401_UNAUTHORIZED)
