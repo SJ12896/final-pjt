@@ -18,7 +18,7 @@ const SERVER_URL = process.env.VUE_APP_SERVER_URL
 export default {
   name: 'MovieReviews',
   props: {
-    movieId: Object,
+    movieId: String,
   },
   data: function () {
     return { 
