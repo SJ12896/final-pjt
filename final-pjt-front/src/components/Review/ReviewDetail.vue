@@ -3,6 +3,7 @@
     <h2>title : {{ review.title }}</h2>
     <p>content : {{ review.content }}</p>
     <button @click="deleteReview">Delete</button>
+    <button @click="updateReview">Update</button>
     <CommentList :review="review"/>
   </div>
 </template>
@@ -49,14 +50,20 @@ export default {
       axios.delete(`${SERVER_URL}/community/review/${this.reviewId}/`,config)
       .then((res) => {
           console.log(res)
-          this.$router.push({ name: 'MovieDetail', params:{ movieId:this.review. movie}})
+          this.$router.push({ name: 'MovieDetail', params:{ movieId:this.review.movie}})
           })
           .catch((err) => {
           console.log(err)
           })
     },
-    
-
+    updateReview: function () {
+      const reviewItem = {
+        'id': this.review.id,
+        'title': this.review.title,
+        'content': this.review.content,
+      }
+      this.$router.push({ name: 'UpdateReview', params:{ movieId:this.review.movie , reviewItem:reviewItem}})
+    }
   },
   mounted() {
     this.getReview()

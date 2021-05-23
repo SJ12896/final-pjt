@@ -3,7 +3,7 @@
     <ul>
       <li v-for="(comment, idx) in review.comment_set" v-bind:key="idx" :comment="comment">
         {{ comment.content }}
-        <button @click="deleteComment(comment)">Delete</button>
+        <button @click="deleteComment(comment.id)">Delete</button>
       </li>
     </ul>
     <div>
@@ -61,18 +61,19 @@ export default {
          })
          this.comments = newComments
     },
-    deleteComment: function (comment) {
+    deleteComment: function (commentId) {
       const config = this.setToken()
       const newComments = this.review.comment_set
-      console.log(comment)
-      axios.delete(`${SERVER_URL}/community/comment/${comment.id}/`,config)
+      // const commentId = commentId
+      console.log(commentId)
+      axios.delete(`${SERVER_URL}/community/comment/${commentId}/`,config)
       .then((res) => {
           console.log(res)
-          const targetCommentIdx = newComments.findIndex((comment) => {
-            return comment.id === res.data.id
-          })
-          console.log(targetCommentIdx)
-          newComments.splice(targetCommentIdx,1)
+          // const targetCommentIdx = newComments.findIndex((comment) => {
+          //   return comment.id === res.data.id
+          // })
+          console.log(commentId)
+          newComments.splice(commentId,1)
           })
           .catch((err) => {
           console.log(err)

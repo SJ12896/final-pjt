@@ -8,6 +8,7 @@ import MovieDetail from '@/components/Movie/MovieDetail'
 import ReviewDetail from '@/components/Review/ReviewDetail'
 import CreateReview from '@/components/Review/CreateReview'
 import CreateCollection from '@/views/CreateCollection'
+import UpdateReview from '@/components/Review/UpdateReview'
 
 
 Vue.use(VueRouter)
@@ -53,6 +54,11 @@ const routes = [
     path: '/collection/create/',
     name: 'CreateCollection',
     component: CreateCollection,
+  },
+  {
+    path: '/community/:movieId/review/update/',
+    name: 'UpdateReview',
+    component: UpdateReview,
   },
 ]
 

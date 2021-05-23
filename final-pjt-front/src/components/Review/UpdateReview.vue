@@ -8,7 +8,7 @@
       <label for="content">내용</label>
       <textarea type="text" id="content" v-model.trim="review.content" ></textarea>
     </div>
-    <button @click="createReview">제출</button>
+    <button @click="updateReview">제출</button>
   </div>
 </template>
 
@@ -21,8 +21,9 @@ export default {
   data: function () {
     return {
       review: {
-        title: '',
-        content: '',
+        id: this.$route.params.reviewItem.id,
+        title: this.$route.params.reviewItem.title,
+        content: this.$route.params.reviewItem.content,
       },
       movieId: this.$route.params.movieId,
     }
@@ -37,21 +38,21 @@ export default {
       }
       return config
     },
-    createReview: function() {
+    updateReview: function () {
       const config = this.setToken()
       const reviewItem = {
-        title: this.review.title,
-        content: this.review.content,
+        'title': this.review.title,
+        'content': this.review.content,
       }
-      axios.post(`${SERVER_URL}/community/movie/${this.movieId}/`,reviewItem, config)
+      axios.put(`${SERVER_URL}/community/review/${this.review.id}/`,reviewItem, config)
       .then((res) => {
-        // console.log(res)  
-        this.$router.push({ name  :'ReviewDetail', params:{ reviewId:res.data.id }})
-        })
-        .catch((err) => {
-         console.log(err)
-         })
-    },
+          console.log(res)
+          this.$router.push({ name  :'ReviewDetail', params:{ reviewId:res.data.id }})
+          })
+          .catch((err) => {
+          console.log(err)
+          })
+    }
   }
 }
 </script>
