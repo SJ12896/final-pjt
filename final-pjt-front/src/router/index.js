@@ -44,10 +44,10 @@ const routes = [
     component: ReviewDetail,
   },
   {
-    path: 'community/review/:reviewId/create/',
+    path: '/community/:movieId/review/create/',
     name: 'CreateReview',
     component: CreateReview,
-  }
+  },
 ]
 
 const router = new VueRouter({
