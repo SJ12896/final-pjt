@@ -1,16 +1,14 @@
 <template>
   <div>
     <h1>Login</h1>
-     <div>
-      <label for="username">사용자 이름: </label>
-      <input type="text" id="username" v-model="credentials.username">
-    </div>
-    <div>
-      <label for="password">비밀번호: </label>
-      <input type="text" id="password" v-model="credentials.password"
+      <label for=""></label>
+      <input type="text" id="username" placeholder="ID" v-model="credentials.username">
+      <br>
+      <label for=""></label>
+      <input type="text" id="password" placeholder="password" v-model="credentials.password"
       @keypress.enter="login">
-    </div>
-    <button @click="login">로그인</button>
+      <br>
+      <button type="submit" @click="login">로그인</button>
   </div>
 </template>
 

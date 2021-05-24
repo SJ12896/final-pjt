@@ -2,6 +2,7 @@
   <div>
     <h2>title : {{ review.title }}</h2>
     <p>content : {{ review.content }}</p>
+    <p>username: {{ $route.params.username }}</p>
     <button @click="deleteReview">Delete</button>
     <button @click="updateReview">Update</button>
     <CommentList :review="review"/>
