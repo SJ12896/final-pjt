@@ -8,6 +8,10 @@
       <label for="content">내용</label>
       <textarea type="text" id="content" v-model.trim="review.content" ></textarea>
     </div>
+        <div>
+      <label for="star_rating">별점</label>
+      <input type="number" id="star_rating" v-model="review.star_rating" min="0" max="5">
+    </div>
     <button @click="createReview">제출</button>
   </div>
 </template>
@@ -23,6 +27,7 @@ export default {
       review: {
         title: '',
         content: '',
+        star_rating: '',
       },
       movieId: this.$route.params.movieId,
     }
@@ -42,6 +47,7 @@ export default {
       const reviewItem = {
         title: this.review.title,
         content: this.review.content,
+        star_rating: this.review.star_rating,
       }
       axios.post(`${SERVER_URL}/community/movie/${this.movieId}/`,reviewItem, config)
       .then((res) => {

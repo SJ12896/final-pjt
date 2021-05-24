@@ -78,7 +78,10 @@ class CollecionAllView(APIView):
 
     def post(self, request):
         movies = request.POST['movies']
-        movies = list(map(int, movies[1:len(movies)-1].split(',')))
+        if ',' in movies:
+            movies = list(map(int, movies.split(',')))
+        else:
+            movies = list(int(movies))
         title = request.POST['title']
         info = request.POST['info']
         collection = Collection(title=title, info=info, user=request.user)

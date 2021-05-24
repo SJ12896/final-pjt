@@ -7,7 +7,7 @@ class MoviesListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
-        read_only_fields = ('genres',)
+        read_only_fields = ('genres', 'star_rating_average',)
 
 
 class CollectionListSerializer(serializers.ModelSerializer):
@@ -31,4 +31,4 @@ class MoviesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = '__all__'
-        read_only_fields = ('genres',)
+        read_only_fields = ('genres', 'star_rating_average',)

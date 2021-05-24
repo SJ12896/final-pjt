@@ -73,9 +73,12 @@ class MovieReview(APIView):
 
     def post(self, request, movie_id):
         movie = get_object_or_404(Movie, id=movie_id)
+        star_rating = int(request.data['star_rating'])
+        cnt_review = len(movie.review_set.all())
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user, movie=movie)
+            movie.star_rating_average = star_rating / cnt_review
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
