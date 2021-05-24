@@ -1,20 +1,17 @@
 <template>
   <div>
     <h1>Signup</h1>
-    <div>
-      <label for="username">사용자 이름: </label>
-      <input type="text" id="username" v-model="credentials.username">
-    </div>
-    <div>
-      <label for="password">비밀번호: </label>
-      <input type="text" id="password" v-model="credentials.password">
-    </div>
-    <div>
-      <label for="passwordConfirmation">비밀번호 확인: </label>
-      <input type="text" id="passwordConfirmation" v-model="credentials.passwordConfirmation"
+      <label for=""></label>
+      <input type="text" id="username" placeholder="아이디" v-model="credentials.username">
+      <br>
+      <label for=""></label>
+      <input type="type" id="password" placeholder="비밀번호" v-model="credentials.password">
+      <br>
+      <label for=""></label>
+      <input type="text" id="passwordConfirmation" placeholder="비밀번호 확인" v-model="credentials.passwordConfirmation"
       @keypress.enter="signup(credentials)">
-    </div>
-    <button @click="signup(credentials)">회원가입</button>
+      <br>
+      <button @click="signup(credentials)">회원가입</button>
   </div>
 </template>
 
@@ -35,7 +32,8 @@ export default {
     }
   },
   methods: {
-    signup: function () {
+    signup: function (credentials) {
+      console.log(credentials)
       axios({
         method: 'post',
         url: `${SERVER_URL}/accounts/user/`,
@@ -43,7 +41,7 @@ export default {
       })
       .then((res) => {
         console.log(res)
-        this.$router.push({ name: 'Login'})
+        this.$router.push({ name: 'Login' })
       })
       .catch((err) => {
         console.log(err)

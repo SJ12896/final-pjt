@@ -2,13 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from '@/views/accounts/Login'
 import Signup from '@/views/accounts/Signup'
+import Index from '@/views/Index'
 import Home from '@/views/Home'
 import Profile from '@/views/Profile'
 import MovieDetail from '@/components/Movie/MovieDetail'
 import ReviewDetail from '@/components/Review/ReviewDetail'
 import CreateReview from '@/components/Review/CreateReview'
-import CreateCollection from '@/views/CreateCollection'
 import UpdateReview from '@/components/Review/UpdateReview'
+import CreateCollection from '@/views/CreateCollection'
 
 
 Vue.use(VueRouter)
@@ -16,6 +17,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Index',
+    component: Index,
+  },
+  {
+    path: '/Home/',
     name: 'Home',
     component: Home,
   },

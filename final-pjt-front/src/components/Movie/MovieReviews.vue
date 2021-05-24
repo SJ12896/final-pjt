@@ -3,9 +3,7 @@
     <h1>{{ movieId }}</h1>
     <div>
       <ul>
-        <li v-for="(review) in movieReviews" v-bind:key="review">
-        <p @click="goReviewDetail(review.id)">{{ review }}</p>
-        </li>
+        <ReviewListItem v-for="(review, idx) in movieReviews" v-bind:key="idx" :review="review"/>
       </ul>
     </div>
   </div>
@@ -13,12 +11,18 @@
 
 <script>
 import axios from 'axios'
+import ReviewListItem from '@/components/Review/ReviewListItem'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
-
+ 
 export default {
   name: 'MovieReviews',
+  components:{
+    ReviewListItem,
+  },
   props: {
-    movieId: Number,
+    movieId: {
+      type: [Number,String],
+    }
   },
   data: function () {
     return { 
@@ -46,9 +50,6 @@ export default {
         console.log(err)
       })
     },
-    goReviewDetail: function (reviewId) {
-      this.$router.push({ name: 'ReviewDetail', params: {reviewId: reviewId}})
-    }
   },
   mounted() {
     this.getMovieReviews()
