@@ -56,6 +56,12 @@ const routes = [
     component: CreateCollection,
   },
   {
+    path: '/collection/update/',
+    name: 'UpdateCollection',
+    component: CreateCollection,
+    props: true,
+  },
+  {
     path: '/community/:movieId/review/update/',
     name: 'UpdateReview',
     component: UpdateReview,

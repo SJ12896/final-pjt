@@ -7,14 +7,24 @@
     </div>
     <div>
       <h3>collection</h3>
-      {{ selectedMovies }}
+        <div v-if="check === create">
+          {{ selectedMovies }}
+        </div>
+        <div v-else>
+          {{ updatedMovies }}
+        </div>
         <div>
           <input type="text" v-model="data.title">
         </div>
         <div>
           <textarea v-model="data.info"></textarea>
         </div>
-        <button @click="saveCollection(data); clear();">저장</button>
+        <div v-if="check === create">
+          <button @click="saveCollection(data); clear();">저장</button>
+        </div>
+        <div v-else>
+          <button>저장</button>
+        </div>
     </div>
   </div>
 </template>
@@ -41,7 +51,13 @@ export default {
         title: '',
         info: '',
       },
+      updatedMovies: [],
+      collection_id: '',
+      check: 'create',
     }
+  },
+  props: {
+    collection : Object,
   },
   methods: {
    onInputSearch: function (inputText) {
@@ -71,11 +87,39 @@ export default {
         this.data.title = ''
         this.data.info = ''
       },
+      // updateCollection: function () {
+      // const token = localStorage.getItem('jwt')
+      // let form = new FormData()
+      // form.append('searchVal', this.searchVal)
+      // axios({
+      //   method: 'post',
+      //   url: `${SERVER_URL}/movies/search/`,
+      //   data: form,
+      //   headers: {
+      //     Authorization: `JWT ${token}`
+      //     }
+      //   })
+      //   .then((res) => {
+      //     this.movies = res.data
+      //   })
+      //   .catch((err) => {
+      //     console.log(err)
+      //   })
+      // }
     },
   computed: {
     ...mapState([
       'selectedMovies',
     ])
+  },
+  created: function () {
+    if (this.$route.path.includes('update')) {
+      this.updatedMovies = this.$route.params['collection']['movies']
+      this.data.title = this.$route.params['collection']['title']
+      this.data.info = this.$route.params['collection']['info']
+      this.collection_id = this.$route.params['collection']['id']
+      this.check = 'update'
+    }
   }
 }
 </script>

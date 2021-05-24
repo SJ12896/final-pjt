@@ -1,5 +1,6 @@
 <template>
   <div>
+    <button @click="updateCollection">수정</button>
     {{ collection.title }}
     {{ collection.info }}
     <span style="display: flex; justify-content: space-between;">
@@ -26,6 +27,11 @@ export default {
   },
   created: function () {
     this.movies = this.collection.movies.length !== 0 ? this.collection.movies : [0]
+  },
+  methods: {
+    updateCollection: function () {
+      this.$router.push({ name: 'UpdateCollection', params: {collection: this.collection} })
+    }
   }
 }
 </script>
