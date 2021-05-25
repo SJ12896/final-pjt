@@ -40,6 +40,7 @@ export default new Vuex.Store({
         })
       .then((res) => {
         commit('GET_MOVIES', res.data)
+        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)

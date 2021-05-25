@@ -1,4 +1,3 @@
-from rest_framework.serializers import Serializer
 from .serializers import CollectionListSerializer, CollectionSerializer, MoviesListSerializer, MoviesSerializer
 from .models import Collection, Movie
 
