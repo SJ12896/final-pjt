@@ -1,16 +1,22 @@
 <template>
   <div>
-    <button @click="updateCollection">수정</button>
-    {{ collection.title }}
-    {{ collection.info }}
-    <span style="display: flex; justify-content: space-between;">
-      <CollectionMovieList v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
-    </span>
+    <div class="collection">
+        <div class="collectionText">
+          <div class="title">{{ collection.title }}</div>
+          <div class="info">{{ collection.info }}</div>
+      </div>
+      <div class="collectionList">
+          <CollectionMovieList v-for="(movie, idx) in movies" :key="idx" :movie="movie"/>
+      </div>
+    <!-- <button @click="updateCollection">수정</button> -->
+    </div>
   </div>
 </template>
 
 <script>
+
 import CollectionMovieList from '@/components/Profile/CollectionMovieList.vue'
+
 export default {
   name: 'CollctionListItem',
   components: {
@@ -31,11 +37,34 @@ export default {
   methods: {
     updateCollection: function () {
       this.$router.push({ name: 'UpdateCollection', params: {collection: this.collection} })
-    }
+    },
   }
 }
 </script>
 
-<style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
 
+.collection {
+  margin-bottom: 55px;
+}
+.collectionText {
+  display: block;
+  text-align: start;
+  height: 50px;
+  margin-left: 20px;
+}
+.collectionList {
+  display: flex;
+  justify-content:flex-start;
+  margin-top: 20px;
+}
+.title {
+  font-size: 20px;
+}
+.info {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: bold;
+  font-size: 28px;
+}
 </style>

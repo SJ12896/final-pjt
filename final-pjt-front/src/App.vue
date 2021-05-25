@@ -1,26 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
           <div v-if="login">
-            <a class="navbar-brand" href="/home/">Navbar</a>
+            <a class="navbar-brand" href="/home/">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           </div>
           <div v-else>
-            <a class="navbar-brand" href="/">Navbar</a>
-          </div>
-          <div v-if="login" class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" >영화1</a>
-              </li>        
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" >영화2</a>
-              </li>
-            </ul>
+            <a class="navbar-brand" href="/">Home</a>
           </div>
           <form v-if="login" class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -28,7 +18,7 @@
           </form>
           <div class="nav-item dropdown">
             <span v-if="login">
-              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dropdown
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -91,8 +81,10 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Noto Sans', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -107,4 +99,5 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
 </style>

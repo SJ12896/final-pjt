@@ -7,24 +7,24 @@
     </div>
     <div>
       <h3>collection</h3>
-        <div v-if="check === create">
+        <!-- <div v-if="check === create"> -->
           {{ selectedMovies }}
-        </div>
+        <!-- </div>
         <div v-else>
           {{ updatedMovies }}
-        </div>
+        </div> -->
         <div>
           <input type="text" v-model="data.title">
         </div>
         <div>
           <textarea v-model="data.info"></textarea>
         </div>
-        <div v-if="check === create">
+        <!-- <div v-if="check === create"> -->
           <button @click="saveCollection(data); clear();">저장</button>
-        </div>
+        <!-- </div>
         <div v-else>
           <button>저장</button>
-        </div>
+        </div> -->
     </div>
   </div>
 </template>
@@ -112,15 +112,15 @@ export default {
       'selectedMovies',
     ])
   },
-  created: function () {
-    if (this.$route.path.includes('update')) {
-      this.updatedMovies = this.$route.params['collection']['movies']
-      this.data.title = this.$route.params['collection']['title']
-      this.data.info = this.$route.params['collection']['info']
-      this.collection_id = this.$route.params['collection']['id']
-      this.check = 'update'
-    }
-  }
+  // created: function () {
+  //   if (this.$route.path.includes('update')) {
+  //     this.updatedMovies = this.$route.params['collection']['movies']
+  //     this.data.title = this.$route.params['collection']['title']
+  //     this.data.info = this.$route.params['collection']['info']
+  //     this.collection_id = this.$route.params['collection']['id']
+  //     this.check = 'update'
+  //   }
+  // }
 }
 </script>
 

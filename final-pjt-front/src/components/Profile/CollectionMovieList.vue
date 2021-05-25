@@ -1,18 +1,19 @@
 <template>
 <div>
-  <CollectionMovieDetail :title="title" :poster_path="poster_path"/>
+    <CollectionMovieDetail :title="title" :poster_path="poster_path" />
 </div>
 </template>
 
 <script>
 import axios from 'axios'
+
 import CollectionMovieDetail from '@/components/Profile/CollectionMovieDetail.vue'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default {
   name : 'CollectionMovieList',
   components: {
-    CollectionMovieDetail
+    CollectionMovieDetail,
   },
   data : function () {
     return {
@@ -49,5 +50,5 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 </style>
