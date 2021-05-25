@@ -1,16 +1,16 @@
 <template>
   <div id="app">
     <div id="nav">
-      <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg bg-transparent">
+        <div class="container-fluid ms-3">
           <div v-if="login">
-            <a class="navbar-brand" href="/home/">Home</a>
+            <a class="navbar-brand text-decoration-none" href="/home/">Home</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
           </div>
           <div v-else>
-            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand text-decoration-none" href="/">Home</a>
           </div>
           <form v-if="login" class="d-flex">
             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -18,7 +18,7 @@
           </form>
           <div class="nav-item dropdown">
             <span v-if="login">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Dropdown
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -29,10 +29,10 @@
             </span>
             <span v-else>
               <span v-if="clickLogin" @click="clickSignUpLink">
-              <router-link :to="{ name: 'Signup' }">Signup</router-link> |
+              <router-link :to="{ name: 'Signup' }" class="text-decoration-none text-light">Signup</router-link> |
               </span>
               <span v-else @click="clickLoginLink">
-              <router-link :to="{ name: 'Login' }">Login</router-link>
+              <router-link :to="{ name: 'Login' }" class="text-decoration-none text-light me-3">Login</router-link>
               </span>
             </span>
           </div>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>Home</h1>
     <MovieList :movies="movies"/>
   </div>
 </template>
@@ -8,6 +7,7 @@
 <script>
 // import _ from 'lodash'
 import axios from 'axios'
+import{ mapActions, mapState } from 'vuex'
 import MovieList from '@/components/Movie/MovieList'
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
@@ -16,11 +16,6 @@ export default {
   name: 'Home',
   components: {
     MovieList,
-  },
-  data: function () {
-    return {
-      movies: null,
-    }
   },
   methods: {
     setToken: function( ) {
@@ -32,17 +27,6 @@ export default {
       }
       return config
     },
-    getMovies: function () {
-      const config = this.setToken()
-      axios.get(`${SERVER_URL}/movies/movie/`,config)
-      .then((res) => {
-        console.log(res.data)
-        this.movies = res.data
-      })
-      .catch((err) => {
-        console.log(err)
-      })
-    },
     getCollections: function () {
       const config = this.setToken()
       axios.get(`${SERVER_URL}/movies/collection_all/`, config)
@@ -52,12 +36,19 @@ export default {
       .catch((err) => {
         console.log(err)
       })
-    }
-
+    },
+    ...mapActions({
+      init: 'getMovies'
+    })
+  },
+  computed:{
+    ...mapState([
+      'movies',
+    ])
   },
   mounted() {
-    this.getMovies()
     this.getCollections()
+    this.init()
   }
 }
 </script>
