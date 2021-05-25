@@ -5,17 +5,19 @@
         <div class="container-fluid ms-3">
           <div v-if="login">
             <a class="navbar-brand text-decoration-none" href="/home/">Home</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button>
           </div>
           <div v-else>
             <a class="navbar-brand text-decoration-none" href="/">Home</a>
           </div>
-          <form v-if="login" class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success" type="submit">Search</button>
-          </form>
+
+        <Dropdown
+            :options="allMovie"
+            v-on:selected="validateSelection"
+            :disabled="false"
+            placeholder="찾고싶은 영화를 검색해보세요"
+            >
+        </Dropdown>
+
           <div class="nav-item dropdown">
             <span v-if="login">
               <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -44,6 +46,9 @@
 </template>
 
 <script>
+import Dropdown from 'vue-simple-search-dropdown';
+import{ mapActions, mapState } from 'vuex'
+
 export default {
   name: 'App',
   data: function () {
@@ -52,7 +57,13 @@ export default {
       login: false,
       username: '',
       myId: '',
+      searchVal: '',
+      allMovie: [],
+      selected: { name: null, id: null },
     }
+  },
+  components: {
+    Dropdown,
   },
   methods: {
     clickLoginLink: function(){
@@ -67,7 +78,17 @@ export default {
       this.login = false
       localStorage.removeItem('jwt')
       this.$router.push({ name: 'Login' })
-    }
+    },
+      ...mapActions({
+      init: 'getMovies'
+    }),
+     validateSelection(selection) {
+        this.selected = selection;
+        console.log(selection.id)
+        if (selection.id !== undefined) {
+          this.$router.push({ name: 'MovieDetail', params: { movieId: selection.id}})
+        }
+      },
   },
   created: function () {
     const token = localStorage.getItem('jwt')
@@ -76,7 +97,24 @@ export default {
       this.login = true
       this.myId = myId
     }
-  }
+  },
+    computed:{
+    ...mapState({
+      movies: 'movies',
+    })
+  },
+    mounted() {
+    this.init()
+    },
+    watch: {
+      movies (newMovies) {
+        this.allMovie = [];
+        for (let i = 0; this.movies.length > i; i++){
+          this.allMovie.push({id: newMovies[i].id, name: newMovies[i].title}
+            )
+          }
+      }
+    }
 }
 </script>
 
@@ -99,5 +137,4 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
-
 </style>

@@ -1,8 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import Dropdown from 'vue-simple-search-dropdown'
 
-Vue.use(Vuex)
+Vue.use(Vuex, Dropdown)
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
@@ -38,7 +39,6 @@ export default new Vuex.Store({
           }
         })
       .then((res) => {
-        console.log(res)
         commit('GET_MOVIES', res.data)
       })
       .catch((err) => {

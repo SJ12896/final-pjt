@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input class="" @keyup="onInputKeyword" type="text" placeholder="컬렉션에 추가할 영화를 검색해보세요.">
+    <input class="" @keyup="onInputSearch" type="text" placeholder="컬렉션에 추가할 영화를 검색해보세요.">
   </div>
 </template>
 
