@@ -1,9 +1,11 @@
 <template>
   <div>
-      <div v-if="movies.length === 0">
+      <div class="noMovie" v-if="movies.length === 0">
+        <img src="../../../public/sorry.png" alt="">
+        <br>
         찾는 영화가 없습니다.
       </div>
-    <div>
+    <div class="movieList">
       <MovieItem v-for="(movie, idx) in movies" :key="idx" :movie="movie" />
     </div>
   </div>
@@ -22,6 +24,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 
+.noMovie {
+  display: block;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  opacity: 50%;
+  word-break: break-all;
+  margin: 50px;
+}
+img {
+  width: 200px;
+  opacity: 30%;
+}
 </style>

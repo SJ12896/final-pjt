@@ -1,11 +1,13 @@
 from rest_framework import serializers
 from .models import Review, Comment
+from movies.serializers import MoviesSerializer
 
 
 class ReviewListSerializer(serializers.ModelSerializer):
+    movie_set = MoviesSerializer(read_only=True)
     class Meta:
         model = Review
-        fields = ('id','title', 'user',)
+        fields = '__all__'
 
 
 class CommentSerializer(serializers.ModelSerializer):

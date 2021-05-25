@@ -1,6 +1,6 @@
 <template>
   <div>
-    <input @keyup="onInputKeyword" type="text">
+    <input class="" @keyup="onInputKeyword" type="text" placeholder="컬렉션에 추가할 영화를 검색해보세요.">
   </div>
 </template>
 
@@ -20,5 +20,19 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+input {
+  width: 350px;
+  display: block;
+  margin: 0 auto;
+  border-bottom: teal 1.5px solid;
+  border-left: medium none;
+  border-right: medium none;
+  border-top: medium none;
+  outline: none;
+}
+div {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
 </style>

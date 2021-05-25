@@ -2,6 +2,9 @@
   <div>
     {{ review.id }}
     {{ review.title }}
+    {{ review.content }}
+    {{ review.star_rating }}
+    {{ review.created_at }}
   </div>
 </template>
 
@@ -15,6 +18,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+div {
+  margin-top: 20px;
+}
 </style>
