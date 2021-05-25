@@ -1,6 +1,6 @@
 <template>
 <div>
-  <ul>
+  <ul class="list-group">
       <ReviewListItem v-for="(review, idx) in reviews" :key="idx" :review="review" />
     </ul>
 </div>

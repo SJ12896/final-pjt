@@ -21,6 +21,13 @@ export default {
   components: {
     MovieItem,
   },
+  watch: {
+    movies (newMovies) {
+      if (newMovies.length === 100) {
+        this.movies = [];
+      }
+      }
+    }
 }
 </script>
 

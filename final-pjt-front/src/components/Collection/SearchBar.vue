@@ -30,6 +30,11 @@ input {
   border-right: medium none;
   border-top: medium none;
   outline: none;
+  background: url("../../assets/loupe.png") no-repeat scroll 7px 7px !important;
+  padding-left:30px !important;
+}
+input::placeholder {
+  color: black;
 }
 div {
   padding-top: 10px;

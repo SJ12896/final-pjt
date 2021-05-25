@@ -3,13 +3,9 @@
     <div id="nav">
       <nav class="navbar navbar-expand-lg bg-transparent">
         <div class="container-fluid ms-3">
-          <div v-if="login">
-            <a class="navbar-brand text-decoration-none" href="/home/">Home</a>
+          <div>
+            <a class="navbar-brand text-decoration-none" href="/home/"><img src="./assets/profile.png" alt="" style="width:80px;"></a>
           </div>
-          <div v-else>
-            <a class="navbar-brand text-decoration-none" href="/">Home</a>
-          </div>
-
         <Dropdown
             :options="allMovie"
             v-on:selected="validateSelection"
@@ -21,11 +17,11 @@
           <div class="nav-item dropdown">
             <span v-if="login">
               <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
+                MY PAGE
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" @click="logout">Logout</a></li>
-                <li><a class="dropdown-item" ><router-link :to="{ path: '/accounts/'+`${myId}`+'/detail'}">Profile</router-link></a></li>
+                <li><a class="dropdown-item" ><router-link :to="{ path: '/accounts/'+`${myId}`+'/detail'}" class="text-decoration-none">Profile</router-link></a></li>
                 <li><hr class="dropdown-divider"></li>
               </ul>
             </span>
@@ -136,5 +132,13 @@ export default {
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+.dropdown-input {
+  background: url("./assets/loupe.png") no-repeat scroll 7px 7px !important;
+  padding-left:30px !important;
+  background-color: #F5F5F7 !important;
+}
+.dropdown-input::placeholder {
+  color: #74747B !important;
 }
 </style>

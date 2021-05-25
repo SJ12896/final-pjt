@@ -1,10 +1,19 @@
 <template>
-  <div>
-    {{ review.id }}
-    {{ review.title }}
-    {{ review.content }}
-    {{ review.star_rating }}
-    {{ review.created_at }}
+  <div class="top">
+    <li class="list-group-item list-group-item-action d-flex justify-content-around align-items-center">
+      <div>
+        {{ review.movie.title }}
+      </div>
+      <div>
+        {{ review.star_rating }}
+      </div>
+      <div>
+        {{ review.title }}
+      </div>
+      <div>
+        {{ review.content }}
+      </div>
+    </li>
   </div>
 </template>
 
@@ -19,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-div {
+.top {
   margin-top: 20px;
 }
 </style>
