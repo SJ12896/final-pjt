@@ -1,8 +1,9 @@
 <template>
-  <li @click="goReviewDetail(review.id)" >
-    title : {{ review.title }}
-    username : {{ username }}
-  </li>
+<div @click="goReviewDetail(review.id)">
+    <h2 id="">{{ review.title }}</h2>
+  <!-- title : {{ review.title }} -->
+  username : {{ username }}
+</div>
 </template>
 
 <script>
@@ -32,7 +33,8 @@ export default {
       return config
     },
     goReviewDetail: function (reviewId) {
-      this.$router.push({ name: 'ReviewDetail', params: {reviewId: reviewId, username:this.username}})
+      console.log(reviewId)
+      this.$router.push({ name: 'ReviewDetail', params: {reviewId: reviewId}})
     },
     getUsername: function() {
       const config = this.setToken()
@@ -53,5 +55,11 @@ export default {
 </script>
 
 <style>
-
+#reviewBox {
+  width:250px;
+  height:200px;
+  background-color: rgb(255, 255, 151);
+  margin-left:8px;
+  margin-top: 5px;
+}
 </style>

@@ -28,7 +28,7 @@ export default {
 </script>
 
 
-<style>
+<style scoped>
   #backGround {
   height: 100vh;
   background-repeat:no-repeat;

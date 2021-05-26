@@ -1,6 +1,8 @@
 <template>
-  <div>
+  <div id="commentList">
+    <div>
     <CommentListItem v-for="(comment, idx) in this.review.comment_set" v-bind:key="idx" :idx="idx" :comment="comment" :review="review"/>
+    </div>
     <div>
       <label for="content">댓글 : </label>
       <input type="text" id="content" v-model.trim="comment.content" @keypress.enter="createComment">
@@ -66,5 +68,7 @@ export default {
 </script>
 
 <style>
-
+#commentList {
+  display:inline-block;
+}
 </style>

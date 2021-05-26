@@ -2,7 +2,9 @@
   <li class="d-flex justify-content-center">
     <div v-if="update">
       {{ comment.content }}
+      <div v-if=" requestUsername == comment.user">
       <button @click="deleteComment(comment,idx)">Delete</button>
+      </div>
     </div>
     <div v-else >
       <input type="text" v-model.trim="comment.content">
@@ -35,6 +37,7 @@ export default {
   data: function () {
     return {
       update: true,
+      requestUsername: localStorage.getItem('id'),
     }
   },
   methods: {

@@ -11,7 +11,6 @@
       </div>
   </div>
 </template>
-
 <script>
 import axios from 'axios'
 
@@ -53,15 +52,20 @@ export default {
 }
 </script>
 
-<style>
-#formBackGround {
-  margin: auto;
+
+<style scoped>
+  #backGround {
   height: 100vh;
   background-repeat:no-repeat;
   background-position: center;
   background-size: cover;
-  background-image:linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5) ), url('../../assets/sky.jpg');
-}
+  }
+  #backGround {
+  /* height: 100%; */
+  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
+  }
+
 .clearfix {
   position: absolute;
   width: 250px;
@@ -81,7 +85,7 @@ export default {
   position: relative;
   color: white;
   width: 100%;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   background: rgba(255,255,255,0.05);
   border-top: 1px solid rgba(255,255,255,0.1);
   border-left: 1px solid rgba(255,255,255,0.1);
@@ -96,7 +100,7 @@ export default {
 }
 .loginbox input {
   position: relative;
-  border-radius: 8px;
+  /* border-radius: 8px; */
   border: none;
   background: rgba(255,255,255,0.05);
   backdrop-filter: blur(10px);
@@ -110,4 +114,5 @@ input::placeholder {
   color: rgba(255,255,255,0.6);
   font-size: 12px;
 }
+
 </style>

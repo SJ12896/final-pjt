@@ -1,12 +1,46 @@
 <template>
-  <div>
-    <h2>title : {{ review.title }}</h2>
-    <p>content : {{ review.content }}</p>
-    <p>username: {{ $route.params.username }}</p>
-    <button @click="deleteReview">Delete</button>
-    <button @click="updateReview">Update</button>
-    <CommentList :review="review"/>
+<div class="">
+  <h4 class="mb-0 mt-4 bold">{{ username }}님의 리뷰</h4>
+  <hr>
+  <div v-if="requestUsername == username">
+    <button class="noBorderSubmit btn mx-1" @click="updateReview">수정</button>
+    <button class="noBorderSubmit btn" @click="deleteReview">삭제</button>
   </div>
+  <div id="reviewDetail" class="">
+    <div id="border" class="mt-3">
+      <div class="d-flex justify-content-between">
+        <div class="mt-2 mb-3 d-flex">
+        <h3 class="mx-4 mb-1"> {{ review.star_rating }}점</h3>
+        <h4 class="mt-1">: {{ review.title }}</h4>
+        </div>
+      </div>
+    <div class="p-4 fw-bold">
+      <p>{{ review.content }}</p>
+      <!-- <p>{{ review.updated_at }}</p> -->
+    </div>
+    <div class="d-flex">
+      <span v-if="heart">
+        <button class="submit btn btn-secondary" @click="like">
+          <i class="fas fa-heart"></i>
+        </button>
+      </span>
+      <span v-else>
+        <button class="submit btn btn-secondary" @click="unLike">
+          <i class="far fa-heart"></i>
+        </button>   
+      </span> 
+      <div>
+        <button class="submit btn btn-secondary ">
+        <i class="far fa-comment"></i>
+      </button>
+      </div>
+    </div>
+    <!-- <p>username: {{ username }}</p> -->
+ <!-- <i class="fas fa-heart" style="color:red;"></i> -->
+    <CommentList :review="review" />
+    </div>
+  </div>
+</div>
 </template>
 
 <script>
@@ -21,11 +55,20 @@ export default {
   },
   data: function () {
     return {
+      heart: false,
+      requestUsername: localStorage.getItem('myname'),
       reviewId: this.$route.params.reviewId,
+      username: '',
       review: [],
     }
   },
   methods: {
+    like: function() {
+      this.heart = true
+    },
+    unLike: function() {
+      this.heart = false
+    },
     setToken: function( ) {
       const token = localStorage.getItem('jwt')
       const config = {
@@ -39,8 +82,11 @@ export default {
       const config = this.setToken()
       axios.get(`${SERVER_URL}/community/review/${this.reviewId}/`,config)
       .then((res) => {
+          console.log('리뷰나옴')
           console.log(res.data)
           this.review = res.data
+          const userId = this.review.user
+          this.getUsername(userId)
           })
           .catch((err) => {
           console.log(err)
@@ -51,7 +97,7 @@ export default {
       axios.delete(`${SERVER_URL}/community/review/${this.reviewId}/`,config)
       .then((res) => {
           console.log(res)
-          this.$router.push({ name: 'MovieDetail', params:{ movieId:this.review.movie}})
+          this.$router.push({ name: 'MovieDetail', params:{ movieId:this.review.movie }})
           })
           .catch((err) => {
           console.log(err)
@@ -62,8 +108,21 @@ export default {
         'id': this.review.id,
         'title': this.review.title,
         'content': this.review.content,
+        'star_rating': this.review.star_rating,
       }
       this.$router.push({ name: 'UpdateReview', params:{ movieId:this.review.movie , reviewItem:reviewItem}})
+    },
+    getUsername: function(userId) {
+      const config = this.setToken()
+      axios.get(`${SERVER_URL}/accounts/${userId}/detail/`, config)
+        .then((res) => {
+          console.log("username나옴")
+          console.log(res)
+          this.username = res.data.username
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
   },
   mounted() {
@@ -73,5 +132,34 @@ export default {
 </script>
 
 <style>
+#reviewDetail {
+  display:inline-block;
+  height: auto;
+  color: rgb(33, 30, 34, 0.9);
+}
+#reviewDetail > div{
+  padding: 10px;
+  background-color:rgba(244, 223, 250, 0.2);
+  width: 500px;
+  border-radius: 6px;
+  /* border: 3px solid rgba(103, 180, 144, 0.5); */
 
+}
+#border > div{
+  border-bottom: 1px solid rgba(134, 91, 155, 0.2);
+
+}
+.submit {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border : 1px solid rgba(255, 255, 255, 0.9);
+  background-color: rgba(154, 68, 235, 0.3);
+  border-radius: 4px;
+  color: white;
+}
+.noBorderSubmit {
+  background-color: rgba(154, 68, 235, 0.3);
+  border-radius: 4px;
+  color: white;
+}
 </style>
