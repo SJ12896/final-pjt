@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <nav class="navbar navbar-expand-lg bg-transparent">
-        <div class="container-fluid ms-3">
+      <nav class="navbar navbar-expand-lg bg-transparent py-0 ms-2">
+        <div class="container-fluid">
           <div>
             <a class="navbar-brand text-decoration-none" href="/home/"><img src="./assets/profile.png" alt="" style="width:80px;"></a>
           </div>
@@ -28,8 +28,8 @@
               </ul>
             </span>
             <span v-else>
-              <span v-if="clickLogin" @click="clickSignUpLink">
-              <router-link :to="{ name: 'Signup' }" class="text-decoration-none text-dark">Signup</router-link> |
+              <span class="me-3" v-if="clickLogin" @click="clickSignUpLink">
+              <router-link :to="{ name: 'Signup' }" class="text-decoration-none text-dark">Signup</router-link>
               </span>
               <span v-else @click="clickLoginLink">
               <router-link :to="{ name: 'Login' }" class="text-decoration-none text-dark me-3">Login</router-link>
@@ -147,6 +147,7 @@ export default {
   background: url("./assets/loupe.png") no-repeat scroll 7px 7px !important;
   padding-left:30px !important;
   background-color: #F5F5F7 !important;
+  margin-right:32px;
 }
 .dropdown-input::placeholder {
   color: #74747B !important;

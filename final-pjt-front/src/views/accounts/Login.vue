@@ -62,7 +62,7 @@ export default {
   }
   #backGround {
   /* height: 100%; */
-  background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  background: linear-gradient(315deg,#fc00aa,#00dbde);
   overflow: hidden;
   }
 
@@ -89,6 +89,8 @@ export default {
   background: rgba(255,255,255,0.05);
   border-top: 1px solid rgba(255,255,255,0.1);
   border-left: 1px solid rgba(255,255,255,0.1);
+  border-right: 1px solid rgba(2, 2, 2, 0.4);
+  border-bottom: 1px solid rgba(2, 2, 2, 0.4);
   box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
   font-size: 13px;
 }
