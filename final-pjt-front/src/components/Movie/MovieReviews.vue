@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ movieId }}</h1>
-    <div>
+    <!-- <h1>{{ movieId }}</h1> -->
+    <div class="mt-5">
       <ul>
         <ReviewListItem v-for="(review, idx) in movieReviews" v-bind:key="idx" :review="review"/>
       </ul>
