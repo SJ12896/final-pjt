@@ -92,7 +92,6 @@ export default {
       axios.get(`${SERVER_URL}/community/${user_id}/reviews/`, config)
       .then((res) => {
         this.reviews = res.data
-        console.log(res.data)
       })
       .catch((err) => {
         console.log(err)
