@@ -1,5 +1,5 @@
 <template>
-  <div  style="margin-top:100px;">
+  <div  style="margin-top:50px;">
     <h3 class=mb-3>Review</h3>
     <div>
       <label for="title"></label>
@@ -65,6 +65,7 @@ export default {
 </script>
 
 <style scoped>
+
 input, textarea {
   width: 350px;
   display: block;

@@ -24,7 +24,7 @@
                 <li><a class="dropdown-item" ><span @click="goProfile">Profile</span>
                   <!-- <router-link :to="{ path: '/accounts/'+`${myId}`+'/detail'}" class="text-decoration-none">Profile</router-link> -->
                   </a></li>
-                <li><hr class="dropdown-divider"></li>
+                <!-- <li><hr class="dropdown-divider"></li> -->
               </ul>
             </span>
             <span v-else>

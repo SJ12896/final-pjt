@@ -1,12 +1,12 @@
 <template>
-  <div id="commentList">
-    <div>
+  <div id="commentList" v-if="message">
+    <div class="p-2">
     <CommentListItem v-for="(comment, idx) in this.review.comment_set" v-bind:key="idx" :idx="idx" :comment="comment" :review="review"/>
     </div>
-    <div>
-      <label for="content">댓글 : </label>
-      <input type="text" id="content" v-model.trim="comment.content" @keypress.enter="createComment">
-      <button @click="createComment" >작성</button>
+    <div class="mt-1">
+      <label for="content"></label>
+      <input class="commentInput" type="text" placeholder="댓글을 입력하시오" id="content" v-model.trim="comment.content" @keypress.enter="createComment">
+      <button class="submit" @click="createComment" >작성</button>
     </div>
   </div>
 </template>
@@ -25,7 +25,8 @@ export default {
   props: {
     review: {
       type: [Array, Object],
-    }
+    },
+    message: Boolean,
   },
   data: function () {
     return {
@@ -67,8 +68,32 @@ export default {
 }
 </script>
 
-<style>
-#commentList {
+<style scoped>
+.commentInput {
+  width: 90%;
+  /* display: block; */
+  margin: 0px auto;
+  background-color: white;
+  border-bottom: rgb(152, 12, 233) 1px solid;
+  border-left: medium none;
+  border-right: medium none;
+  border-top: medium none;
+  outline: none;
+}
+
+input::placeholder {
+  color: rgb(100, 99, 99);
+}
+/* #commentList {
   display:inline-block;
+} */
+.submit {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  border : 1px solid rgba(255, 255, 255, 0.9);
+  background-color: rgba(154, 68, 235, 0.3);
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
 }
 </style>

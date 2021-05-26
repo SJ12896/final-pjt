@@ -1,13 +1,13 @@
 <template>
 <div class="">
-  <h4 class="mb-0 mt-4 bold">{{ username }}님의 리뷰</h4>
+  <h3 class="mt-3"><span @click="goUserProfile">{{ username }}</span>님의 리뷰</h3>
   <hr>
   <div v-if="requestUsername == username">
-    <button class="noBorderSubmit btn mx-1" @click="updateReview">수정</button>
-    <button class="noBorderSubmit btn" @click="deleteReview">삭제</button>
+    <button class="noBorderSubmit btn mx-1 px-2 py-1" @click="updateReview">수정</button>
+    <button class="noBorderSubmit btn px-2 py-1" @click="deleteReview">삭제</button>
   </div>
   <div id="reviewDetail" class="">
-    <div id="border" class="mt-3">
+    <div id="border" class="mt-3 p-3">
       <div class="d-flex justify-content-between">
         <div class="mt-2 mb-3 d-flex">
         <h3 class="mx-4 mb-1"> {{ review.star_rating }}점</h3>
@@ -19,25 +19,40 @@
       <!-- <p>{{ review.updated_at }}</p> -->
     </div>
     <div class="d-flex">
-      <span v-if="heart">
-        <button class="submit btn btn-secondary" @click="like">
-          <i class="fas fa-heart"></i>
-        </button>
-      </span>
-      <span v-else>
-        <button class="submit btn btn-secondary" @click="unLike">
-          <i class="far fa-heart"></i>
-        </button>   
-      </span> 
       <div>
-        <button class="submit btn btn-secondary ">
-        <i class="far fa-comment"></i>
-      </button>
+        <span v-if="heart">
+          <button class="submit btn btn-secondary" @click="unlike">
+            <i id="heart" class="fas fa-heart"></i>
+          </button>
+        </span>
+        <span v-else>
+          <button class="submit btn btn-secondary" @click="Like">
+            <i class="fas fa-heart"></i>
+          </button>   
+        </span>
+          <p class="mb-0" style="font-size:12px;">
+            {{ review.like_count }}
+          </p>
       </div>
-    </div>
+      <div>
+        <span v-if="message">
+          <button class="submit btn btn-secondary" @click="noCommentView">
+          <i class="far fa-comment" ></i>
+          </button>
+        </span>
+        <span v-else>
+          <button class="submit btn btn-secondary" @click="commentView">
+            <i class="fas fa-comment"></i>
+          </button>
+        </span>
+        <p class="mb-0" style="font-size:12px;">
+          {{ review.comment_count }}
+        </p>
+      </div>
+      </div>
     <!-- <p>username: {{ username }}</p> -->
  <!-- <i class="fas fa-heart" style="color:red;"></i> -->
-    <CommentList :review="review" />
+    <CommentList :review="review" :message="message"/>
     </div>
   </div>
 </div>
@@ -56,6 +71,7 @@ export default {
   data: function () {
     return {
       heart: false,
+      message: false,
       requestUsername: localStorage.getItem('myname'),
       reviewId: this.$route.params.reviewId,
       username: '',
@@ -63,11 +79,22 @@ export default {
     }
   },
   methods: {
-    like: function() {
-      this.heart = true
+    goUserProfile: function () {
+      this.$router.push({ name: 'Profile' , params:{ user_id:this.review.user}})
     },
-    unLike: function() {
+    noCommentView: function() {
+      this.message = false
+    },
+    commentView:function(){
+      this.message = true
+    },
+    unlike: function() {
       this.heart = false
+      this.review.like_count -= 1
+    },
+    Like: function() {
+      this.heart = true
+      this.review.like_count += 1
     },
     setToken: function( ) {
       const token = localStorage.getItem('jwt')
@@ -131,7 +158,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+#heart {
+  color: #ff000093;
+}
+
 #reviewDetail {
   display:inline-block;
   height: auto;
@@ -161,5 +192,6 @@ export default {
   background-color: rgba(154, 68, 235, 0.3);
   border-radius: 4px;
   color: white;
+  font-weight: bold;
 }
 </style>

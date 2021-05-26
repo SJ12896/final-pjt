@@ -106,7 +106,7 @@ export default {
   backdrop-filter: blur(10px);
   border-top: 1px;
   border-left: 1px;
-  box-shadow: 5px 5px 30px rgba(0,0,0,0.2);
+  /* box-shadow: 5px 5px 30px rgba(0,0,0,0.2); */
   color: rgb(255, 255, 255);
   transition: color 0.3s ease-out;
 }
