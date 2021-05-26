@@ -1,5 +1,5 @@
 <template>
-  <div id="formBackGround">
+  <div id="BackGround">
     <div class="clearfix2">
       <p class="loginbox text-light text-center">
        Sign Up

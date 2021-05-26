@@ -2,19 +2,28 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import Dropdown from 'vue-simple-search-dropdown'
+import createPersistedState from 'vuex-persistedstate';
 
 Vue.use(Vuex, Dropdown)
 
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 
 export default new Vuex.Store({
+  plugins: [
+    createPersistedState()
+  ],
   state: {
+    movieDetail: null,
     movies: null,
     selectedMovies : [],
   },
   mutations: {
     GET_MOVIES: function(state, movies) {
       state.movies = movies
+    },
+    GET_MOVIE: function(state, movie) {
+      state.movieDetail = movie
+      console.log(state.movieDetail)
     },
     SELECT_MOVIE : function (state, movieItem) {
           const idx = state.selectedMovies.indexOf(movieItem)
@@ -45,6 +54,9 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
+    },
+    getMovie: function ({commit}, movie) {
+      commit('GET_MOVIE', movie)
     },
     selectMovie: function ({ commit }, movieItem) {
       commit('SELECT_MOVIE', movieItem)

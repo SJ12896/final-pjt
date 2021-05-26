@@ -1,7 +1,7 @@
 <template>
-  <li @click="goReviewDetail(review.id)">
-    {{ review.title }}
-    {{ username }}
+  <li @click="goReviewDetail(review.id)" >
+    title : {{ review.title }}
+    username : {{ username }}
   </li>
 </template>
 
