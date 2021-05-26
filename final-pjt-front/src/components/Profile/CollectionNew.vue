@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="isSamePerson === true" class="newCollection">
-      <button @click="CreateNewCollection" class="snip1535">
+      <button @click="COLLECTION_RESET(); CreateNewCollection();" class="snip1535">
           New
       </button>
     </div>
@@ -9,6 +9,8 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
   name: 'CollectionNew',
   props: {
@@ -17,7 +19,10 @@ export default {
   methods: {
     CreateNewCollection: function () {
       this.$router.push({ name: 'CreateCollection' })
-    }
+    },
+    ...mapMutations([
+      'COLLECTION_RESET',
+    ])
   }
 }
 </script>

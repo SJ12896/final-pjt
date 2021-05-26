@@ -26,11 +26,15 @@ export default new Vuex.Store({
       console.log(state.movieDetail)
     },
     SELECT_MOVIE : function (state, movieItem) {
-          const idx = state.selectedMovies.indexOf(movieItem)
-          if (idx === -1) {
+      let check = ''
+      state.selectedMovies.find((movie, idx) => {
+        if (movie.id === movieItem.id) {
+          check = idx
+      }})
+          if (check === '') {
             state.selectedMovies.push(movieItem)
           } else {
-            state.selectedMovies.splice(idx, 1)
+            state.selectedMovies.splice(check, 1)
           }
       },
       COLLECTION_RESET : function (state) {

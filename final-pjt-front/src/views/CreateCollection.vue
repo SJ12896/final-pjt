@@ -68,6 +68,12 @@ export default {
         })
         .then((res) => {
           this.movies = res.data
+          for (let i = 0; this.movies.length; i++) {
+
+            if (!Object.prototype.hasOwnProperty.call(this.movies[i], 'isSelected')) {
+              this.movies[i]['isSelected'] = false
+            }
+          }
         })
         .catch((err) => {
           console.log(err)
