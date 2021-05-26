@@ -41,9 +41,9 @@ export default {
   display: inline-block;
   font-family: 'BenchNine', Arial, sans-serif;
   font-size: 1em;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 1em;
-  margin: 15px 20px;
+  margin: 15px 10px;
   outline: none;
   padding: 12px 20px 10px;
   position: relative;

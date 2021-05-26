@@ -105,7 +105,6 @@ export default {
   },
   watch :{
     myId: function () {
-      console.log(this.myId)
       this.getFollow()
     }
   }
@@ -119,7 +118,7 @@ span {
   display:flex;
   justify-content: start;
   margin-left: 50px;
-  margin-top: 20px;
+  margin-top: 30px;
   font-weight: 10;
   font-size: 20px;
   color: black;
@@ -130,6 +129,6 @@ span {
   display: flex;
   justify-content:flex-start;
   margin-top: 20px;
-  margin-left: 20px;
+  margin-left: 30px;
 }
 </style>

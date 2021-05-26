@@ -82,12 +82,14 @@ export default {
       
       axios.get(`${SERVER_URL}/accounts/${user_id}/detail/`, config)
       .then((res) => {
+        const myId = Number(localStorage.getItem('myId'))
         this.username = res.data.username
         this.followers = res.data.followers
         this.followings = res.data.followings
         this.followingCount = res.data.followingCount
         this.followerCount = res.data.followerCount
-        if (this.followings.includes(user_id)) {
+        console.log(this.followers, myId)
+        if (this.followers.includes(myId)) {
           this.isFollow = true
         }
         if (this.myName === this.username) {
