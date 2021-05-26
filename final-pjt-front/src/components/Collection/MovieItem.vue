@@ -1,6 +1,6 @@
 <template>
-  <div>
-      <div @click="selected(); selectMovie(movie);" :class="{ container : container, selected: isSelected }">
+  <div @click="selectMovie(movie); selected();">
+      <div :class="{ container : container, selected: isSelected }">
           <img :src="movieImage" alt="title">
         <div class="movieTitle">
           <div class="title">
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 export default {
   name: 'MovieItem',
@@ -29,8 +29,8 @@ export default {
   },
   data: function() {
     return {
-      isSelected: false,
       container: true,
+      isSelected: false,
     }
   },
   methods: {
@@ -38,10 +38,10 @@ export default {
       'selectMovie',
     ]),
     selected: function() {
-      if (this.isSelected) {
-        this.isSelected = false
-      } else {
+      if (this.selectedMovies.includes(this.movie)) {
         this.isSelected = true
+      } else {
+        this.isSelected = false
       }
     }
   },
@@ -51,13 +51,11 @@ export default {
         return `https://image.tmdb.org/t/p/w500/${this.movie.poster_path}`
       }
       return false
-      }
+      },
+      ...mapState([
+      'selectedMovies',
+    ]),
   },
-  watch: {
-    movie: function () {
-      this.isSelected = false;
-    }
-  }
 }
 </script>
 
