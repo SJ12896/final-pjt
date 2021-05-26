@@ -36,6 +36,7 @@ export default {
       following_movies: [],
       following_name: '',
       randomNum: '',
+      idCheck: '',
     }
   },
   components: {
@@ -66,7 +67,7 @@ export default {
     getFollow: function() {
     const config = this.setToken()
     const myId = localStorage.getItem('myId')
-
+    this.idCheck = myId
     axios.get(`${SERVER_URL}/accounts/${myId}/detail/`, config)
       .then((res) => {
         this.followings = res.data.followings
@@ -99,8 +100,14 @@ export default {
   mounted() {
     this.init()
   },
-  updated() {
+  created() {
     this.getFollow()
+  },
+  watch :{
+    myId: function () {
+      console.log(this.myId)
+      this.getFollow()
+    }
   }
 }
 </script>

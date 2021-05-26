@@ -5,7 +5,9 @@ from rest_framework.views import APIView
 from .serializers import UserSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_jwt.authentication import JSONWebTokenAuthentication
+import jwt
 
+from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.contrib.auth import get_user_model
 
@@ -19,6 +21,12 @@ class UserView(APIView):
         person = get_object_or_404(get_user_model(), pk=user_id)
         serializer = UserSerializer(person)
         return Response(serializer.data)
+    
+    # def findUser(request):
+    #     token = request.headers['Authorization'].split()[1]
+    #     SECRET_KEY = settings.SECRET_KEY
+    #     payload = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+
     
     def post(self, request, user_id):
         person = get_object_or_404(get_user_model(), pk=user_id)
@@ -76,3 +84,5 @@ class UserId(APIView):
         person = get_object_or_404(get_user_model(), username=username)
         serializer = UserSerializer(person)
         return Response(serializer.data)
+
+

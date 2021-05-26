@@ -21,7 +21,9 @@
               </a>
               <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li><a class="dropdown-item" @click="logout">Logout</a></li>
-                <li><a class="dropdown-item" ><router-link :to="{ path: '/accounts/'+`${myId}`+'/detail'}" class="text-decoration-none">Profile</router-link></a></li>
+                <li><a class="dropdown-item" ><span @click="goProfile">Profile</span>
+                  <!-- <router-link :to="{ path: '/accounts/'+`${myId}`+'/detail'}" class="text-decoration-none">Profile</router-link> -->
+                  </a></li>
                 <li><hr class="dropdown-divider"></li>
               </ul>
             </span>
@@ -37,7 +39,7 @@
         </div>
       </nav>
     </div>
-    <router-view @login="login = true"/>
+    <router-view :key="$route.fullpath" @login="login = true"/>
   </div>
 </template>
 
@@ -88,7 +90,11 @@ export default {
       },
       ...mapMutations([
         'GET_MOVIE'
-      ])
+      ]),
+      goProfile: function() {
+        const myId = localStorage.getItem('myId')
+        this.$router.replace('/accounts/'+`${myId}`+'/detail')
+      }
   },
   created: function () {
     const token = localStorage.getItem('jwt')
