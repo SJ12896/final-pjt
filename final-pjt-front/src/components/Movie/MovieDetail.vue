@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     movieImage: function () {
-      return `https://image.tmdb.org/t/p/w200/${this.movieDetail.poster_path}`
+      return `https://image.tmdb.org/t/p/w500/${this.movieDetail.poster_path}`
     },
     ...mapState([
       'movieDetail',

@@ -27,10 +27,10 @@
             </span>
             <span v-else>
               <span v-if="clickLogin" @click="clickSignUpLink">
-              <router-link :to="{ name: 'Signup' }" class="text-decoration-none text-light">Signup</router-link> |
+              <router-link :to="{ name: 'Signup' }" class="text-decoration-none text-dark">Signup</router-link> |
               </span>
               <span v-else @click="clickLoginLink">
-              <router-link :to="{ name: 'Login' }" class="text-decoration-none text-light me-3">Login</router-link>
+              <router-link :to="{ name: 'Login' }" class="text-decoration-none text-dark me-3">Login</router-link>
               </span>
             </span>
           </div>
@@ -43,7 +43,7 @@
 
 <script>
 import Dropdown from 'vue-simple-search-dropdown';
-import{ mapActions, mapState } from 'vuex'
+import{ mapActions, mapState, mapMutations } from 'vuex'
 
 export default {
   name: 'App',
@@ -80,11 +80,15 @@ export default {
     }),
      validateSelection(selection) {
         this.selected = selection;
-        console.log(selection.id)
         if (selection.id !== undefined) {
+          console.log(selection)
+          this.GET_MOVIE(selection)
           this.$router.push({ name: 'MovieDetail', params: { movieId: selection.id}})
         }
       },
+      ...mapMutations([
+        'GET_MOVIE'
+      ])
   },
   created: function () {
     const token = localStorage.getItem('jwt')
@@ -106,7 +110,7 @@ export default {
       movies (newMovies) {
         this.allMovie = [];
         for (let i = 0; this.movies.length > i; i++){
-          this.allMovie.push({id: newMovies[i].id, name: newMovies[i].title}
+          this.allMovie.push({id: newMovies[i].id, name: newMovies[i].title, title: newMovies[i].title, release_date: newMovies[i].release_date, poster_path: newMovies[i].poster_path, overview: newMovies[i].overview }
             )
           }
       }
@@ -115,10 +119,10 @@ export default {
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
 
 #app {
-  font-family: 'Noto Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

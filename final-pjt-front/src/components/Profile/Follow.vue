@@ -41,14 +41,14 @@ export default {
   display: inline-block;
   font-family: 'BenchNine', Arial, sans-serif;
   font-size: 1em;
-  font-size: 22px;
+  font-size: 12px;
   line-height: 1em;
-  margin: 15px 40px;
+  margin: 15px 20px;
   outline: none;
-  padding: 12px 40px 10px;
+  padding: 12px 20px 10px;
   position: relative;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 500;
 }
 .snip1535:before,
 .snip1535:after {
@@ -58,9 +58,9 @@ export default {
   border-style: solid;
   border-width: 0;
   content: "";
-  height: 24px;
+  height: 12px;
   position: absolute;
-  width: 24px;
+  width: 12px;
 }
 .snip1535:before {
   border-color: #4ca1a3;

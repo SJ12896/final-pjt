@@ -6,7 +6,6 @@
 
 <script>
 import axios from 'axios'
-
 import CollectionMovieDetail from '@/components/Profile/CollectionMovieDetail.vue'
 const SERVER_URL = process.env.VUE_APP_SERVER_URL
 

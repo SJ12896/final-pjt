@@ -4,8 +4,8 @@
       <p class="loginbox text-light text-center">
        Sign Up
       <input class="px-1 mt-2" type="text" id="username" placeholder="ID" v-model="credentials.username">
-      <input class="px-1" type="type" id="password" placeholder="Password" v-model="credentials.password">
-      <input class="px-1" type="text" id="passwordConfirmation" placeholder="PasswordConfirm" v-model="credentials.passwordConfirmation"
+      <input class="px-1" type="password" id="password" placeholder="Password" v-model="credentials.password">
+      <input class="px-1" type="password" id="passwordConfirmation" placeholder="PasswordConfirm" v-model="credentials.passwordConfirmation"
       @keypress.enter="signup(credentials)">
       <button class="mt-2 p-0" @click="signup(credentials)"><p class="mb-0">Sign up</p>
         </button>

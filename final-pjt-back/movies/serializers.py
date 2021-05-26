@@ -1,6 +1,7 @@
 from django.db.models import fields
 from rest_framework import serializers
 from .models import Collection, Movie, Genre
+from accounts.serializers import UserSerializer
 
 class GenreSerializer(serializers.ModelSerializer):
     
@@ -18,6 +19,7 @@ class MoviesListSerializer(serializers.ModelSerializer):
 
 
 class CollectionListSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
     class Meta:
         model = Collection
         fields = '__all__'

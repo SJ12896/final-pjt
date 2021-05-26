@@ -79,7 +79,7 @@ export default {
       clear: function () {
         this.data.title = ''
         this.data.info = ''
-        this.$router.push('/accounts/'+`${this.myId}`+'/detail')
+        this.$router.replace('/accounts/'+`${this.myId}`+'/detail')
       },
     },
   computed: {

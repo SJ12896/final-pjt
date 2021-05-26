@@ -22,14 +22,19 @@ export default {
   },
   computed: {
     movieImage: function () {
-      return `https://image.tmdb.org/t/p/w200/${this.movie.poster_path}`
+      return `https://image.tmdb.org/t/p/w500/${this.movie.poster_path}`
       }
   },
 }
 </script>
 
-<style>
+<style scoped>
  #imageDiv {
-   margin-top: 40px;
+   margin-top: 10px;
+ }
+ img {
+   border: 1px solid lightgray;
+   border-radius: 7px;
+   width: 200px;
  }
 </style>

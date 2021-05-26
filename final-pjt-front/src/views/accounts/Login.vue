@@ -4,7 +4,7 @@
         <p class="loginbox text-light text-center ">
           Login
           <input class="px-1 mt-2" type="text" id="username" placeholder="ID" v-model="credentials.username">
-          <input class="px-1" type="text" id="password" placeholder="Password" v-model="credentials.password"
+          <input class="px-1" type="password" id="password" placeholder="Password" v-model="credentials.password"
         @keypress.enter="login">
         <button class="mt-2 p-0" type="submit" @click="login"><p class="mb-0 ">Login</p></button>
         </p>

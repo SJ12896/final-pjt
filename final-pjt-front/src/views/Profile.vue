@@ -1,21 +1,30 @@
 <template>
   <div class="top">
-    <h3><UserInfo :username="username"/>님의 profile</h3>
-    팔로워 :{{ followers.length }}명
-    팔로잉 :{{ followings.length }}명
+    <div class="title"><UserInfo :username="username"/>님의 profile</div>
+    <div class="follow">
+      <div class="nums">
+      <div class="follower">
+        {{ followers.length }}
+      </div>
+      <div class="following">
+        {{ followings.length }}
+        </div>
+      </div>
+     팔로워  팔로잉 
     <Follow :isFollow="isFollow" :isSamePerson="isSamePerson" @follow="follow" @unfollow="unfollow"/>
+    </div>
     <div class="changeBtn">
       <button v-if="now === true" @click="changeMode" class="snip1535">Review</button>
       <button v-else @click="changeMode" class="snip1535">Collection</button>
     </div>
     <hr>
       <div v-if="now === true" class='collection' >
-          <h3>컬렉션</h3>
+          <div class="title">컬렉션</div>
             <CollectionNew :isSamePerson="isSamePerson"/>
           <CollectionList :collections="collections" />
       </div>
     <div v-else class="review">
-        <h3>리뷰 목록</h3>
+        <div class="title">리뷰 목록</div>
           <UserReviewList :reviews="reviews"/>
     </div>
     </div>
@@ -150,19 +159,46 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');
+
 .top {
    margin-top: 20px;
- }
+  }
+
+.title {
+    font-weight: 10;
+    font-size: 20px;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+}
+
 .collections {
     margin: 30px;
   }
-h3 {
-  font-size: 30px;
-  font-weight: bold;
-}
+
 .changeBtn {
   margin-top: 15px;
   margin-left: 10px;
+}
+
+.follow {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  margin-right: 50px;
+}
+
+.follower {
+  margin-right: 39px;
+}
+
+.following {
+  margin-right: 21px;
+}
+
+.nums {
+  display: flex;
 }
 
 @import url(https://fonts.googleapis.com/css?family=BenchNine:700);

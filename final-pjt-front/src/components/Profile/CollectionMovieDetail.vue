@@ -43,15 +43,15 @@ export default {
 .container {
   display: block;
   margin-top: 10px;
-  width : 235px; 
-  height: 325px;
+  width : 175px; 
+  height: 225px;
   word-break: break-all;
 }
 img {
   border-radius: 7px;
   display: inline-block;
-  width : 200px; 
-  height: 300px;
+  width : 150px; 
+  height: 200px;
   margin-bottom: 10px;
 }
 </style>

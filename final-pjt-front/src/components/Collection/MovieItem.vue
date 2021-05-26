@@ -64,7 +64,7 @@ export default {
 <style scoped>
 .container {
   margin-top: 20px;
-  padding: 20px;
+  padding: 15px;
   width : 500px; 
   height: 300px;
   word-break: break-all;
