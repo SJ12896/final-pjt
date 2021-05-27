@@ -1,38 +1,49 @@
 <template>
-<div id="movieDetailBox">
+<div>
+  <div v-if="flag">
+    <Trailer :flag="flag"/>
+  </div>
   <div class="card">
-    <!-- {{ movieDetail }} -->
-    <div class="card-up">
-      <div class="card_left">
-        <img class="" :src="movieImage" alt="movie_image"> 
-      </div>
-      <div id="contentBox" class="card_right">
-        <h1>{{ movieDetail.title }}</h1>
-        <div class="card_right_details">
-          <ul id="card_right_details_ul">
-            <li>개봉일 : {{ movieDetail.release_date }}</li>
-            <li>장르 : </li>
-          </ul>
-          <div id="card_right_rating">
-            <div class="card_right_rating_stars">
-              <fieldset id="ration" class='rating'>
-                <input id='star10' name='rating' type='radio' value='10'>
-                <label class='full' for='star10' title='10 stars'></label>
-                <input id='star9half' name='rating' type='radio' value='9 and a half'>
-                <label class='half' for='star9half' title='9.5 stars'></label>
-            </fieldset>
-            </div>
+  <!-- <div class="card__inner">
+    <header class="card__header">
+    </header> -->
+    
+    <main class="card__body d-flex flex-column">
+        <div class="d-flex justify-content-between">
+          <div class="card__image">
+            <img class="" :src="movieImage" alt="movie_image"> 
           </div>
-          <div id="card_right_overview">
-            <p>{{ overview }}</p>
+          <div class="card__info">
+            <h1 class="card__title">{{ movieDetail.title }}</h1>
+        
+            <p class="card__slug">{{ overview }}</p>
+ 
+              <div>
+              <div v-if="flag">
+              <button class="card__btn" value="Watch trailer" @click="closeTrailer">Stop Watch</button>
+              </div>
+              <div v-else>
+              <button class="card__btn" value="Watch trailer" @click="goTrailer">Watch trailer</button>
+              </div>
+            </div>
+            <div class="mt-2">
+              <button class="card__btn" @click="goCreateReview">CREATE REVIEW</button>
+            </div>
+            <div class="mb-1 mt-3">
+              평점 : {{ movieDetail.star_rating_average }}
+            </div>
+            <div class="mb-1">개봉일 : {{ movieDetail.release_date }}</div>
+            <span v-for="(genre, idx) in movieDetail.genres" :key="idx" :genre="genre">
+              <span>{{ genre.name }}   </span>
+            </span>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <div id="card_down">
-    <MovieReviews :movieId="movieId"/>
-    <button @click="goCreateReview" >리뷰쓰기</button>
+        <div class="text-light reviewList">
+          <div>
+            <MovieReviews :movieId="movieId"/>
+          </div>
+        </div>
+    </main>
   </div>
 </div>
 </template>
@@ -41,26 +52,35 @@
 // import axios from 'axios'
 import {mapState} from 'vuex'
 import MovieReviews from '@/components/Movie/MovieReviews'
-
+import Trailer from '@/components/Movie/Trailer'
 
 export default {
   name: 'MovieDetail',
   components: {
     MovieReviews,
+    Trailer,
   },
   data: function () {
     return {
       movieId: this.$route.params.movieId,
       overview: '',
+      flag: false,
     }
   },
    methods: {
+    goTrailer: function() {
+      this.flag = true
+    },
+    closeTrailer: function() {
+      this.flag = false
+    },
     goCreateReview: function() {
+      console.log('클릭')
       this.$router.push({ name: 'CreateReview'})
     },
     overviewSplit: function () {
-      if (this.movieDetail.overview.length > 150) {
-        this.overview = this.movieDetail.overview.substring(0,150)+'....'
+      if (this.movieDetail.overview.length > 125) {
+        this.overview = this.movieDetail.overview.substring(0,125)+'....'
       }else {
         this.overview = this.movieDetail.overview
       }
@@ -70,7 +90,7 @@ export default {
   },
   computed: {
     movieImage: function () {
-      return `https://image.tmdb.org/t/p/w500/${this.movieDetail.poster_path}`
+      return `https://image.tmdb.org/t/p/w300/${this.movieDetail.poster_path}`
     },
     ...mapState([
       'movieDetail',
@@ -83,218 +103,187 @@ export default {
 </script>
 
 <style scoped>
-@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
-/* #movieDetailBox {
-  background: #e2e2e2;
-  width: 98%;
-  height: 100vh;
-  margin-top: 60px;
-} */
-.card {
-  width: 600px;
-  height: 350px;
-  background: transparent;
-  position: absolute;
-  /* display: inline-block; */
-  left: 0;
-  right: 0;
-  margin: auto;
-  top: 0;
-  bottom: 0;
-  border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-
-}
-#card_doun{
-  display: inline-block;
-  width: 600px;
-  border:1px solid rgba(0,0,0);
-  box-shadow: 0px 20px 30px 3px rgba(0, 0, 0, 0.55);
-}
-.card_left {
-  width: 40%;
-  height: 350px;
-  float: left;
-  overflow: hidden;
-  background: transparent;
-}
-.card_left img {
+html,
+body,
+.wrapper {
   width: 100%;
-  height: 350px;
-  border-radius: 10px 0 0 10px;
-  -webkit-border-radius: 10px 0 0 0px;
-  -moz-border-radius: 10px 0 0 10px;
-  position: relative;
+  height: 100%;
 }
 
-.card_right {
-  width: 60%;
-  float: left;
-  background: #000000;
-  height: 350px;
-  border-radius: 0 10px 10px 0;
-  -webkit-border-radius: 0 10px 0px 0;
-  -moz-border-radius: 0 10px 10px 0;
-}
-.card_right h1 {
-  color: white;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 400;
-  /* text-align: left; */
-  font-size: 20px;
-  margin: 30px 0 30px 0;
-  padding: 0 0 0 0;
-  text-align: center;
-  letter-spacing: 1px;
+html {
+  font-size: 16px;
 }
 
-.card_right_details ul {
+body {
+  font-size: 100%;
+  font-family: "Roboto", Arial, Verdana, sans-serif;
+  background: #eee;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
   list-style-type: none;
-  padding: 0 0 0 40px;
-  margin: 10px 0 0 0;
 }
-
-#card_right_details_ul li {
-  /* display: inline; */
-  color: #e3e3e3;
-      /* font-family: "Montserrat", sans-serif; */
-  font-weight: 400;
-  font-size: 14px;
-  margin: 0 0 10px 0;
-  padding: 0 40px 0 0;
+.reviewList {
+  height: 100% ;
+  /* overflow: auto; */
 }
-
-/* .card_right_rating_stars{
+.card {
   position: relative;
-  right: 160px;
-  margin: 10px 0 10px 0;
-} */
-
-/* .card_right_rating_stars label{
-  margin: 0;
-  padding: 0;
-}
-
-.card_right_rating_stars fieldset{
-  margin: 0;
-  padding: 0;
-}
-
-#card_right_rating {
-  border: none;
-}
-
-#card_right_rating > input {
-  display: none;
-}
-#card_right_rating > label:before {
-  margin: 5px;
-  font-size: 1.25em;
+  margin-top: 2rem;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: auto;
   display: inline-block;
-  content: "\f005";
-  font-family: FontAwesome;
+  width: 42rem;
+  height: 40rem;
+  background: #0a0a0a;
+  background-position: -60px 42px, 0;
+  background-repeat: no-repeat;
+  background-size: 70% 88%;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
-
-#card_right_rating > .half:before {
-  content: "\f089";
+.card::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera*/
+}
+/* .card:after {
+  content: "";
   position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.15);
+} */
+
+
+.list {
+  display: flex;
 }
 
-#card_right_rating > label {
-  color: #ddd;
-  float: right;
+.list--nav {
+  justify-content: space-around;
 }
-
-
-#card_right_rating > input:checked ~ label,
-#card_right_rating:not(:checked) > label:hover, 
-#card_right_rating:not(:checked) > label:hover ~ label {
-            color: #ffd700;
-          }
-
-#card_right_rating > input:checked + label:hover, 
-#card_right_rating > input:checked ~ label:hover,
-#card_right_rating > label:hover ~ input:checked ~ label
-#card_right_rating > input:checked ~ label:hover ~ label {
-            color: #ffed85;
-          } */
-
-#card_right_overview p{
-  color: white;
-  font-family: "Montserrat", sans-serif;
-  font-size: 12px;
-  padding: 0 40px 0 40px;
-  letter-spacing: 1px;
-  margin: 20px 0 10px 0;
-  line-height: 20px;
+.list--nav li {
+  width: calc(100%/3);
+  background: #111;
+  transition: all 0.2s cubic-bezier(0.4, 0, 1, 1);
 }
-
-/* #card_right_overview a {
+.list--nav li:focus, .list--nav li:hover {
+  background: #333;
+}
+.list--nav li:first-of-type {
+  background: #292929;
+}
+.list--nav a {
+  display: block;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.125rem;
+  text-align: center;
+  text-transform: uppercase;
   text-decoration: none;
-  font-family: "Montserrat", sans-serif;
-  font-size: 14px;
-  padding: 0 0 0 40px;
-  color: #ffda00;
-  margin: 0;
-} */
-
-      /* &_button {
-        a {
-          color: #ffda00;
-          text-decoration: none;
-          font-family: "Montserrat", sans-serif;
-          border: 2px solid #ffda00;
-          padding: 10px 10px 10px 40px;
-          font-size: 12px;
-          background: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/343086/COMdoWZ.png);
-          background-size: 12px 12px;
-          background-repeat: no-repeat;
-          background-position: 7% 50%;
-          border-radius: 5px;
-          -webkit-transition-property: all;
-          transition-property: all;
-          -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-        }
-        a:hover {
-          color: #000000;
-          background-color: #ffda00;
-          background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/343086/rFQ5dHA.png);
-          background-size: 12px 12px;
-          background-repeat: no-repeat;
-          background-position: 10% 50%;
-          cursor: pointer;
-          -webkit-transition-property: all;
-          transition-property: all;
-          -webkit-transition-duration: 0.5s;
-          transition-duration: 0.5s;
-        }
-        padding: 0 0 0 40px;
-        margin: 30px 0 0 0;
-      } */
-
-
-/* #contentBox {
-  width: 450px;
-  padding: 20px;
+  color: #fff;
 }
 
-#contentBox div {
+.card__body {
+  position: absolute;
+  display: inline-block;
+  width: 100%;
+  /* top: 50%; */
+  /* transform: translateY(-50%); */
+}
+
+.card__info,
+.card__footer {
+  color: #fff;
+}
+
+.card__info {
+  position: relative;
+  padding-top: 2rem;
+  padding-right: 1.7rem;
+  float: right;
+  width: 50%;
+}
+
+.card__title {
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.card__slug {
+  margin-bottom: 1.25rem;
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.card__btn {
+  display: inline-block;
+  padding: 0.65rem 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.0625rem;
+  text-transform: uppercase;
+  color: #fff;
+  background: #c62828;
+  border: 0;
+  border-radius: 2.1875rem;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
+  transition: all 0.2s cubic-bezier(0.4, 0, 1, 1);
+}
+.card__btn:focus, .card__btn:hover {
+  color: #fff;
+  background: #dc5454;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.card__rating {
+  display: inline-block;
+  position: relative;
+  padding: 1rem;
+  margin-left: 3rem;
+  color: #fff;
+  border-radius: 50%;
+  border: 3px solid #c62828;
+}
+.card__rating:before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  top: -5px;
+  left: 0;
+  width: 50%;
+  height: 20px;
+  background: #000;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  padding-top: 1rem;
+  padding-right: 1.25rem;
+  padding-bottom: 1rem;
   width: 100%;
 }
 
-#movieDetailBox {
-  margin-top: 55px;
-  width: 100%;
-  margin-left: 0px;
-  margin-right: 0px;
+.list--info {
+  padding-left: 1rem;
+  float: right;
+  justify-content: space-between;
+  width: 50%;
 }
-#imageContainer {
-  width: 100%;
-  height: 300px;
-  background-color: black;
-} */
+.list--info li {
+  font-size: 0.85rem;
+}
+.list--info li:nth-of-type(n+2) {
+  margin-left: 1rem;
+}
 </style>

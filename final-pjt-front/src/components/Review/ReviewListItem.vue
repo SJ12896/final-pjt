@@ -1,8 +1,11 @@
 <template>
-<div @click="goReviewDetail(review.id)">
-    <h2 id="">{{ review.title }}</h2>
+<div class="d-flex justify-content-between mt-1" @click="goReviewDetail(review.id)">
+    <div>{{ review.star_rating }}</div>
+    <div id="">{{ review.title }}</div>
   <!-- title : {{ review.title }} -->
-  username : {{ username }}
+    <div class="me-4">
+    {{ username }}
+    </div>
 </div>
 </template>
 
