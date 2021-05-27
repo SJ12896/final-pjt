@@ -40,8 +40,15 @@ export default {
     },
     getMovieReviews: function() {
       const config = this.setToken()
+      let sum = 0
       axios.get(`${SERVER_URL}/community/movie/${this.movieId}`,config)
       .then((res) => {
+        res.data.forEach((element) => {
+          sum += element.star_rating
+        })
+        console.log(sum)
+        this.$emit('reviewLength',res.data.length, sum)
+        console.log('리뷰들 나옴')
         console.log(res)
         this.movieReviews = res.data
       })

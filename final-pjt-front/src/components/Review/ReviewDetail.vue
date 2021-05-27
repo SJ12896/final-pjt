@@ -55,6 +55,9 @@
     <CommentList :review="review" :message="message"/>
     </div>
   </div>
+  <div>
+    <button class="submit" @click="goMovieDetail">back</button>
+  </div>
 </div>
 </template>
 
@@ -79,6 +82,9 @@ export default {
     }
   },
   methods: {
+    goMovieDetail: function() {
+      this.$router.push({ name: 'MovieDetail', params: { movieId: this.$route.params.movieId , starRating: this.review.star_rating }})
+    },
     goUserProfile: function () {
       this.$router.push({ name: 'Profile' , params:{ user_id:this.review.user}})
     },
@@ -159,6 +165,11 @@ export default {
 </script>
 
 <style scoped>
+.back {
+  padding-left : 450px;
+  margin-top : 8px;
+  color: rgb(209, 19, 226, 0.6);
+}
 #heart {
   color: #ff000093;
 }

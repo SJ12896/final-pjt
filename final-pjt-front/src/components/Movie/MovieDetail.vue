@@ -29,8 +29,11 @@
             <div class="mt-2">
               <button class="card__btn" @click="goCreateReview">CREATE REVIEW</button>
             </div>
-            <div class="mb-1 mt-3">
-              평점 : {{ movieDetail.star_rating_average }}
+            <div v-if="star_rating_average > 0" class="mb-1 mt-3">
+              평점 : {{ star_rating_average }}
+            </div>
+            <div v-else  class="mb-1 mt-3">
+              평점 : -
             </div>
             <div class="mb-1">개봉일 : {{ movieDetail.release_date }}</div>
             <span v-for="(genre, idx) in movieDetail.genres" :key="idx" :genre="genre">
@@ -40,7 +43,7 @@
         </div>
         <div class="text-light reviewList">
           <div>
-            <MovieReviews :movieId="movieId"/>
+            <MovieReviews :movieId="movieId" @reviewLength="reviewLength"/>
           </div>
         </div>
     </main>
@@ -62,9 +65,13 @@ export default {
   },
   data: function () {
     return {
+      star_rating_average: 0,
+      starRating: null,
+      length: 1,
       movieId: this.$route.params.movieId,
       overview: '',
       flag: false,
+      sum: 0,
     }
   },
    methods: {
@@ -77,6 +84,19 @@ export default {
     goCreateReview: function() {
       console.log('클릭')
       this.$router.push({ name: 'CreateReview'})
+    },
+    ratingAverage: function() {
+      console.log('길이나옴')
+      console.log(this.length)
+      console.log(this.$route.params.starRating)
+      this.star_rating_average = (this.sum / this.length).toFixed(2)
+      // if (this.$route.params.starRating) {
+      // }
+    },
+    reviewLength: function(length, sum) {
+      this.length = length
+      this.sum = sum
+      this.ratingAverage()
     },
     overviewSplit: function () {
       if (this.movieDetail.overview.length > 125) {

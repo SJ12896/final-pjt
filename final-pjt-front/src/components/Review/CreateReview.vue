@@ -55,7 +55,7 @@ export default {
       axios.post(`${SERVER_URL}/community/movie/${this.movieId}/`,reviewItem, config)
       .then((res) => {
         console.log(res)  
-        this.$router.push({ name  :'ReviewDetail', params:{ reviewId:res.data.id, username:localStorage.getItem('myname')}})
+        this.$router.push({ name  :'ReviewDetail', params:{ reviewId:res.data.id, username:localStorage.getItem('myname'), movieId: this.movieId}})
         })
         .catch((err) => {
          console.log(err)
