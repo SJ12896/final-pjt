@@ -78,7 +78,9 @@ class MovieReview(APIView):
         serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
             serializer.save(user=request.user, movie=movie)
-            movie.star_rating_average = star_rating / (cnt_review+1)
+            total = (movie.star_rating_average * cnt_review)
+            movie.star_rating_average = (star_rating + total) / (cnt_review+1)
+            print(total, star_rating, cnt_review, movie.star_rating_average)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 

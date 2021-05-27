@@ -13,7 +13,7 @@
            {{ movie.vote_average }}
            <br>
            </div>
-           {{ movie.overview }}
+           {{ overview }}
         </div>
       </div>
   </div>
@@ -31,6 +31,7 @@ export default {
     return {
       container: true,
       isSelected: false,
+      overview: '',
     }
   },
   methods: {
@@ -42,6 +43,13 @@ export default {
         this.isSelected = true
       } else {
         this.isSelected = false
+      }
+    },
+        overviewSplit: function () {
+      if (this.movie.overview.length > 125) {
+        this.overview = this.movie.overview.substring(0,200)+'....'
+      }else {
+        this.overview = this.movie.overview
       }
     }
   },
@@ -56,6 +64,9 @@ export default {
       'selectedMovies',
     ]),
   },
+   mounted() {
+    this.overviewSplit()
+  }
 }
 </script>
 
