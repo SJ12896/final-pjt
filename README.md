@@ -15,25 +15,25 @@
 
 1. 영화 정보 상세페이지에서 유튜브 트레일러 시청, 리뷰 작성, 다른 사람들 리뷰에 좋아요를 누르거나 코멘트 작성
 
-![ezgif.com-gif-maker](README.assets/ezgif.com-gif-maker.gif)
+![1](README.assets/1.gif)
 
 ---
 
 2. 검색을 통해 영화정보 상세 페이지로 이동 (포스터를 클릭해도 이동 가능)
 
-![ezgif.com-gif-maker (1)](README.assets/ezgif.com-gif-maker (1).gif)
+![2](README.assets/2.gif)
 
 ---
 
 3. 다른 회원 팔로우 시 내가 팔로우한 모든 회원이 만든 컬렉션 중 1개가 랜덤으로 메인 페이지에 표시
 
-![ezgif.com-gif-maker (2)](README.assets/ezgif.com-gif-maker (2).gif)
+![3](README.assets/3.gif)
 
 ---
 
 4. 프로필 페이지에서 나의 컬렉션 생성
 
-![ezgif.com-gif-maker (3)](README.assets/ezgif.com-gif-maker (3).gif)
+![4](README.assets/4.gif)
 
 
 
